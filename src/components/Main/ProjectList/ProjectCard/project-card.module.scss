@@ -1,0 +1,31 @@
+$pri-color: black;
+$sec-color: whitesmoke;
+$tri-color: darkgrey;
+
+.projectCard {
+  width: 50vw;
+  height: 5vh;
+  border-radius: 5px;
+  // box-shadow: $tri-color 2.3px 3px;
+
+  background-color: $pri-color;
+  color: $sec-color;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .project_cont {
+    width: 40vw;
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      text-decoration: none;
+      color: $sec-color;
+    }
+    .link {
+      cursor: pointer;
+    }
+  }
+}

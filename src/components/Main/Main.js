@@ -5,7 +5,8 @@ import { reqUserData } from "../../ducks/userReducer";
 import styles from "./main.module.scss";
 import Nav from "./Nav/Nav";
 import UserInfo from "./UserInfo/UserInfo";
-import FileManager from "./FileManager/FileManager";
+import Uploader from "./Uploader/Uploader";
+import ProjectList from "./ProjectList/ProjectList";
 
 class Main extends Component {
   componentDidMount() {
@@ -41,7 +42,8 @@ class Main extends Component {
             image={image}
             location={location}
           />
-          <FileManager />
+          <ProjectList />
+          <Uploader />
         </div>
       </div>
     );

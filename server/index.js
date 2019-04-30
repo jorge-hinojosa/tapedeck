@@ -36,7 +36,9 @@ app.get("/auth/logout", ac.logout);
 app.get("/auth/user-data", ac.getUserData);
 
 //Project endpoints
+app.get("/api/project", pc.getAllProjects);
 app.post("/api/project", pc.addProject);
+app.delete("/api/project/:id", pc.removeProject);
 
 //Server listening
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));
