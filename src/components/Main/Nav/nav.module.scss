@@ -1,0 +1,42 @@
+$pri-color: black;
+$sec-color: whitesmoke;
+
+.nav {
+  width: 100vw;
+  height: 7vh;
+  background-color: $pri-color;
+  color: $sec-color;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .nav_cont {
+    border: 1px solid white;
+    width: 80vw;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      color: $sec-color;
+    }
+
+    ul {
+      border: 1px solid white;
+      width: 20vw;
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      color: $sec-color;
+
+      .nav_link {
+        text-decoration: none;
+        color: $sec-color;
+      }
+    }
+  }
+}
