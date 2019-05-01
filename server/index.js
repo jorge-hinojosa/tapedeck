@@ -36,8 +36,8 @@ app.get("/auth/logout", ac.logout);
 app.get("/auth/user-data", ac.getUserData);
 
 //Project endpoints
-app.get("/api/project", pc.getAllProjects);
-app.post("/api/project", pc.addProject);
+app.get("/api/project/", pc.getAllProjects);
+app.post("/api/project", pc.addNewProject);
 app.delete("/api/project/:id", pc.removeProject);
 
 //Server listening

@@ -19,7 +19,6 @@ class Main extends Component {
       .catch(err => console.log(err));
   };
   render() {
-    console.log(this.props);
     const {
       first_name,
       last_name,

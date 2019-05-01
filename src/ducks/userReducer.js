@@ -1,6 +1,7 @@
 import axios from "axios";
 
 let initialState = {
+  id: 0,
   first_name: "",
   last_name: "",
   username: "",
@@ -19,7 +20,6 @@ export const reqUserData = () => {
     payload: axios
       .get("/auth/user-data")
       .then(res => {
-        console.log(res);
         return res.data;
       })
       .catch(err => console.log(err))
@@ -29,10 +29,19 @@ export const reqUserData = () => {
 //Reducer Function
 export function userReducer(state = initialState, action) {
   const { type, payload } = action;
+  console.log(action);
   switch (type) {
     case `${REQ_USER_DATA}_FULFILLED`:
-      const { first_name, last_name, username, bio, image, location } = payload;
-      return { first_name, last_name, username, bio, image, location };
+      const {
+        id,
+        first_name,
+        last_name,
+        username,
+        bio,
+        image,
+        location
+      } = payload;
+      return { id, first_name, last_name, username, bio, image, location };
     default:
       return state;
   }

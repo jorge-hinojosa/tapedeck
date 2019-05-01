@@ -8,27 +8,32 @@ class ProjectList extends Component {
   componentDidMount() {
     this.props.reqProjects();
   }
-  delete = id => {
-    console.log(id);
+
+  delete = project_id => {
+    console.log(project_id);
     axios
-      .delete(`/api/project/${id}`)
+      .delete(`/api/project/${project_id}`)
       .then(res => {})
       .catch(err => console.log(err));
+
     this.props.reqProjects();
   };
   render() {
     console.log(this.props.projects.projects);
+    // console.log(this.props);
     const { projects } = this.props.projects;
-    const projectList = projects.map(project => {
-      const { id, name, description, author, project_url } = project;
+    const projectList = projects.map((project, i) => {
+      const { project_id, name, description, username, project_url } = project;
+      console.log(project_id);
       return (
         <ProjectCard
-          id={id}
+          project_id={project_id}
           name={name}
           description={description}
-          author={author}
+          username={username}
           project_url={project_url}
-          delete={this.delete}
+          deleteProject={this.delete}
+          key={i}
         />
       );
     });

@@ -3,14 +3,8 @@ import S3FileUpload from "react-s3";
 import axios from "axios";
 import { connect } from "react-redux";
 import { reqProjects } from "../../../ducks/projectReducer";
-
-const config = {
-  bucketName: "honey-bucket",
-  dirName: "projects",
-  region: "us-west-2",
-  accessKeyId: "AKIAIRGLY2N7DRDPZT3Q",
-  secretAccessKey: "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"
-};
+// import { reqUserData } from "../../../ducks/userReducer";
+import { config } from "../../../aws_config";
 
 class Uploader extends Component {
   constructor() {
@@ -18,33 +12,45 @@ class Uploader extends Component {
     this.state = {
       name: "",
       description: "",
-      author: ""
+      username: ""
     };
   }
+  // componentDidMount() {
+  //   this.props.reqUserData();
+  // }
+
   handleName = val => this.setState({ name: val });
   handleDesc = val => this.setState({ description: val });
-  handleAuthor = val => this.setState({ author: val });
+  handleUsername = val => this.setState({ username: val });
 
-  upload = async e => {
+  uploadNew = async e => {
     const result = await S3FileUpload.uploadFile(
       e.target.files[0],
       config
     ).catch(err => console.log(err));
+
     const { location } = result;
-    const { name, description, author } = this.state;
+    const { name, description, username } = this.state;
+
     axios
-      .post("/api/project", { name, description, author, location })
+      .post("/api/project", { name, description, username, location })
       .then(res => this.props.reqProjects())
-      .catch(err => console.log(err));
+      .catch(err =>
+        alert(
+          `${err}: Project already exists. Upload new version on project card`
+        )
+      );
 
     this.clearInputFields();
   };
   clearInputFields = () => {
     this.refs.projectName.value = "";
     this.refs.description.value = "";
-    this.refs.author.value = "";
+    this.refs.username.value = "";
+    this.refs.file.value = "";
   };
   render() {
+    // console.log(this.props);
     return (
       <div>
         <input
@@ -60,19 +66,20 @@ class Uploader extends Component {
           onChange={e => this.handleDesc(e.target.value)}
         />
         <input
-          ref="author"
+          ref="username"
           type="text"
           placeholder="Username"
-          onChange={e => this.handleAuthor(e.target.value)}
+          onChange={e => this.handleUsername(e.target.value)}
         />
-        <input type="file" onChange={this.upload} />
+        <input ref="file" type="file" onChange={this.uploadNew} />
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    projects: state.projects
+    projects: state.projects,
+    user: state.user
   };
 };
 export default connect(

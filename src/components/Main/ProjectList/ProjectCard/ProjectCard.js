@@ -1,24 +1,40 @@
-import React from "react";
+import React, { Component } from "react";
 import styles from "./project-card.module.scss";
 
-function ProjectCard(props) {
-  return (
-    <div className={styles.projectCard}>
-      <div className={styles.project_cont}>
-        <span>{props.name}</span>
-        <span>{props.description}</span>
-        <span>{props.author}</span>
-        <span>
-          <a href={props.project_url} target="_blank" rel="noopener noreferrer">
-            download
-          </a>
-        </span>
-        <span className={styles.link} onClick={() => props.delete(props.id)}>
-          delete
-        </span>
+class ProjectCard extends Component {
+  render() {
+    const {
+      name,
+      description,
+      username,
+      project_url,
+      deleteProject,
+      project_id
+    } = this.props;
+    return (
+      <div className={styles.projectCard}>
+        <div className={styles.project_cont}>
+          <span>{name}</span>
+          <span>{description}</span>
+          <span>{username}</span>
+          <span className={styles.link}>edit</span>
+          <span className={styles.link}>invite</span>
+          <span className={styles.link}>upload</span>
+          <span>
+            <a href={project_url} target="_blank" rel="noopener noreferrer">
+              download
+            </a>
+          </span>
+          <span
+            className={styles.link}
+            onClick={() => deleteProject(project_id)}
+          >
+            delete
+          </span>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default ProjectCard;

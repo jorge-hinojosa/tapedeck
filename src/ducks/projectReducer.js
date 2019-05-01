@@ -23,7 +23,7 @@ export function projectReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case `${GET_PROJECTS}_FULFILLED`:
-      return { projects: payload };
+      return { ...state, projects: payload };
     default:
       return state;
   }

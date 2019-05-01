@@ -52,7 +52,6 @@ class Welcome extends Component {
   login = () => {
     const { username, password } = this.state;
     axios.post("/auth/login", { username, password }).then(res => {
-      console.log(res);
       if (res.data.username) {
         this.setState({
           loggedIn: true,
