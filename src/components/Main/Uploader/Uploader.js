@@ -4,7 +4,14 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { reqProjects } from "../../../ducks/projectReducer";
 // import { reqUserData } from "../../../ducks/userReducer";
-import { config } from "../../../aws_config";
+
+const config = {
+  bucketName: process.env.REACT_APP_BUCKET_NAME,
+  dirName: process.env.REACT_APP_FOLDER,
+  region: process.env.REACT_APP_REGION,
+  accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_SECRET_KEY
+};
 
 class Uploader extends Component {
   constructor() {
@@ -15,9 +22,9 @@ class Uploader extends Component {
       username: ""
     };
   }
-  // componentDidMount() {
-  //   this.props.reqUserData();
-  // }
+  componentDidMount() {
+    console.log(config);
+  }
 
   handleName = val => this.setState({ name: val });
   handleDesc = val => this.setState({ description: val });
