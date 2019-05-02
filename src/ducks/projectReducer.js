@@ -17,7 +17,6 @@ export const reqProjects = () => {
       .catch(err => console.log(err))
   };
 };
-
 //Reducer Function
 export function projectReducer(state = initialState, action) {
   const { type, payload } = action;

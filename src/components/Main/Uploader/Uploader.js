@@ -22,9 +22,6 @@ class Uploader extends Component {
       username: ""
     };
   }
-  componentDidMount() {
-    console.log(config);
-  }
 
   handleName = val => this.setState({ name: val });
   handleDesc = val => this.setState({ description: val });
