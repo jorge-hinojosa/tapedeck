@@ -1,80 +1,105 @@
 import React, { Component } from "react";
 import styles from "./project-card.module.scss";
-import S3FileUpload from "react-s3";
 import axios from "axios";
 import VersionCard from "./VersionCard/VersionCard";
-
-const config = {
-  bucketName: process.env.REACT_APP_BUCKET_NAME,
-  dirName: process.env.REACT_APP_FOLDER,
-  region: process.env.REACT_APP_REGION,
-  accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-  secretAccessKey: process.env.REACT_APP_SECRET_KEY
-};
+import UploadVersion from "./UploadVersion";
+import Invite from "./Invite";
 
 class ProjectCard extends Component {
   constructor() {
     super();
     this.state = {
       versions: [],
-      updatedDescription: "",
-      updatedUsername: "",
-      cardOpen: false
+      currVersionUsername: "",
+      cardOpen: false,
+      editting: false,
+      inviting: false,
+      uploading: false
     };
   }
-
+  componentDidMount() {
+    this.getCurrVersionUsername(this.props.project_id);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.versions.length !== this.state.versions.length) {
+      this.getCurrVersionUsername(this.props.project_id);
+    }
+  }
   toggleCard = () => {
     const { cardOpen } = this.state;
     if (cardOpen === false) {
       this.getAllVersions(this.props.project_id);
-      this.setState({ cardOpen: true });
+      this.setState({
+        cardOpen: true,
+        editting: false,
+        inviting: false,
+        uploading: false
+      });
     } else if (cardOpen === true) {
       this.setState({ cardOpen: false });
     }
   };
+  toggleEdit = () => {
+    const { editting } = this.state;
+    if (editting === false) {
+      this.setState({
+        cardOpen: false,
+        editting: true,
+        inviting: false,
+        uploading: false
+      });
+    } else if (editting === true) {
+      this.setState({ editting: false });
+    }
+  };
+  toggleInvite = () => {
+    const { inviting } = this.state;
+    if (inviting === false) {
+      this.setState({
+        cardOpen: false,
+        editting: false,
+        inviting: true,
+        uploading: false
+      });
+    } else if (inviting === true) {
+      this.setState({ inviting: false });
+    }
+  };
+  toggleUpload = () => {
+    const { uploading } = this.state;
+    if (uploading === false) {
+      this.setState({
+        cardOpen: false,
+        editting: false,
+        inviting: false,
+        uploading: true
+      });
+    } else if (uploading === true) {
+      this.setState({ uploading: false });
+    }
+  };
 
   getAllVersions = project_id => {
-    console.log(project_id);
     axios
       .get(`/api/project/versions/${project_id}`)
       .then(res => {
-        console.log(res);
+        // console.log("VERSIONS ARRAY***", res.data);
         this.setState({ versions: res.data });
-        console.log(this.state.versions);
+        // console.log(this.state.versions);
+      })
+      .catch(err => console.log(err));
+  };
+  getCurrVersionUsername = project_id => {
+    axios
+      .get(`/api/project/${project_id}`)
+      .then(res => {
+        console.log(res);
+        this.setState({ currVersionUsername: res.data[0].username });
+        console.log(this.state.currVersionUsername);
       })
       .catch(err => console.log(err));
   };
 
-  uploadVersion = async e => {
-    const result = await S3FileUpload.uploadFile(
-      e.target.files[0],
-      config
-    ).catch(err => console.log(err));
-
-    const { project_id, name, description, username, project_url } = this.props;
-    const { updatedDescription, updatedUsername } = this.state;
-
-    axios
-      .post("/api/project/versions", {
-        project_id,
-        name,
-        description,
-        username,
-        project_url
-      })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-
-    axios
-      .put(`/api/project/${project_id}`, {
-        name,
-        updatedDescription,
-        updatedUsername,
-        result
-      })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  };
   render() {
     const {
       name,
@@ -84,14 +109,18 @@ class ProjectCard extends Component {
       deleteProject,
       project_id
     } = this.props;
+    // console.log(this.state.versions);
 
     const viewVersions = this.state.versions.map((version, i) => {
       return (
         <VersionCard
+          version_id={version.id}
+          project_id={version.project_id}
           name={version.name}
           description={version.description}
           username={version.username}
           project_url={version.project_url}
+          getAllVersions={this.getAllVersions}
           key={i}
         />
       );
@@ -104,10 +133,20 @@ class ProjectCard extends Component {
             <button onClick={() => this.toggleCard()}>open</button>
             <span>{name}</span>
             <span>{description}</span>
-            <span>{username}</span>
-            <span className={styles.link}>edit</span>
-            <span className={styles.link}>invite</span>
-            <span className={styles.link}>upload</span>
+            <span>
+              {this.state.currVersionUsername !== ""
+                ? this.state.currVersionUsername
+                : this.props.username}
+            </span>
+            <span onClick={() => this.toggleEdit()} className={styles.link}>
+              edit
+            </span>
+            <span onClick={() => this.toggleInvite()} className={styles.link}>
+              invite
+            </span>
+            <span onClick={() => this.toggleUpload()} className={styles.link}>
+              upload
+            </span>
             <span>
               <a href={project_url} target="_blank" rel="noopener noreferrer">
                 download
@@ -121,15 +160,21 @@ class ProjectCard extends Component {
             </span>
           </div>
         </div>
-        {this.state.cardOpen
-          ? viewVersions
-          : // <VersionCard
-            //   name={name}
-            //   description={description}
-            //   username={username}
-            //   project_url={project_url}
-            // />
-            null}
+        {this.state.cardOpen ? viewVersions : null}
+        {this.state.editting ? <div>editting</div> : null}
+        {this.state.inviting ? <Invite project_id={project_id} /> : null}
+        {this.state.uploading ? (
+          <UploadVersion
+            project_id={project_id}
+            name={name}
+            description={description}
+            username={username}
+            project_url={project_url}
+            getAllVersions={this.getAllVersions}
+            getCurrVersionUsername={this.getCurrVersionUsername}
+            reqProjects={this.props.reqProjects}
+          />
+        ) : null}
       </div>
     );
   }

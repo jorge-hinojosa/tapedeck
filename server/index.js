@@ -5,6 +5,7 @@ const session = require("express-session");
 
 const ac = require("./controllers/auth_controller");
 const pc = require("./controllers/project_controller");
+const uc = require("./controllers/user_controller");
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const app = express();
@@ -29,6 +30,10 @@ app.use(
 //Enabling body-parser
 app.use(express.json());
 
+//Enabling AWS S3
+let sign_s3 = require("./aws_config");
+app.use("/sign_s3", sign_s3.sign_s3);
+
 //Auth endpoints
 app.post("/auth/login", ac.login);
 app.post("/auth/signup", ac.signup);
@@ -37,14 +42,19 @@ app.get("/auth/user-data", ac.getUserData);
 
 //Project endpoints
 app.get("/api/project", pc.getAllProjects);
+app.get("/api/project/:id", pc.getProject);
 app.post("/api/project", pc.addNewProject);
-app.put("api/project/:id");
 app.delete("/api/project/:id", pc.removeProject);
+app.put("/api/project/:id", pc.updateCurrVersion);
 
 //Version endpoints
 app.get("/api/project/versions/:id", pc.getAllVersions);
 app.post("/api/project/versions", pc.addNewVersion);
 app.delete("/api/project/versions/:id", pc.removeVersion);
+
+//User endpoints
+app.get("/api/user", uc.findUser);
+app.post("/api/user", uc.inviteUser);
 
 //Server listening
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));

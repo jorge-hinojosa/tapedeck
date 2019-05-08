@@ -18,12 +18,9 @@ class ProjectList extends Component {
     this.props.reqProjects();
   };
   render() {
-    // console.log(this.props.projects.projects);
-    // console.log(this.props);
     const { projects } = this.props.projects;
     const projectList = projects.map((project, i) => {
       const { project_id, name, description, username, project_url } = project;
-      // console.log(project_id);
       return (
         <ProjectCard
           project_id={project_id}
@@ -32,6 +29,7 @@ class ProjectList extends Component {
           username={username}
           project_url={project_url}
           deleteProject={this.delete}
+          reqProjects={this.props.reqProjects}
           key={i}
         />
       );

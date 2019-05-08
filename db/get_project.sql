@@ -1,3 +1,3 @@
 SELECT *
 FROM project
-WHERE name = $1;
+WHERE id = $1;

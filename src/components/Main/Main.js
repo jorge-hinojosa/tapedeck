@@ -12,6 +12,7 @@ class Main extends Component {
   componentDidMount() {
     this.props.reqUserData();
   }
+
   logout = () => {
     axios
       .get("/auth/logout")
@@ -43,6 +44,7 @@ class Main extends Component {
           />
           <ProjectList />
           <Uploader />
+          {/* <FileUpload /> */}
         </div>
       </div>
     );

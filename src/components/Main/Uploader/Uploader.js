@@ -1,17 +1,7 @@
 import React, { Component } from "react";
-import S3FileUpload from "react-s3";
 import axios from "axios";
 import { connect } from "react-redux";
 import { reqProjects } from "../../../ducks/projectReducer";
-// import { reqUserData } from "../../../ducks/userReducer";
-
-const config = {
-  bucketName: process.env.REACT_APP_BUCKET_NAME,
-  dirName: process.env.REACT_APP_FOLDER,
-  region: process.env.REACT_APP_REGION,
-  accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-  secretAccessKey: process.env.REACT_APP_SECRET_KEY
-};
 
 class Uploader extends Component {
   constructor() {
@@ -19,7 +9,10 @@ class Uploader extends Component {
     this.state = {
       name: "",
       description: "",
-      username: ""
+      username: "",
+      success: false,
+      error: false,
+      errorMessage: ""
     };
   }
 
@@ -27,23 +20,52 @@ class Uploader extends Component {
   handleDesc = val => this.setState({ description: val });
   handleUsername = val => this.setState({ username: val });
 
-  uploadNew = async e => {
-    const result = await S3FileUpload.uploadFile(
-      e.target.files[0],
-      config
-    ).catch(err => console.log(err));
+  uploadNew = e => {
+    let file = e.target.files[0];
+    // Split the filename to get the name and type
+    let fileParts = file.name.split(".");
+    let fileName = fileParts[0];
+    let fileType = fileParts[1];
 
-    const { location } = result;
     const { name, description, username } = this.state;
+    console.log("Preparing the upload");
 
     axios
-      .post("/api/project", { name, description, username, location })
-      .then(res => this.props.reqProjects())
-      .catch(err =>
-        alert(
-          `${err}: Project already exists. Upload new version on project card`
-        )
-      );
+      .post("/sign_s3", {
+        fileName: fileName,
+        fileType: fileType
+      })
+      .then(response => {
+        var returnData = response.data.data.returnData;
+        var signedRequest = returnData.signedRequest;
+        var url = returnData.url;
+        this.setState({ url: url });
+        console.log("Recieved a signed request " + signedRequest);
+
+        var options = {
+          headers: {
+            "Content-Type": fileType
+          }
+        };
+        axios.put(signedRequest, file, options).then(result => {
+          console.log("Response from s3");
+          this.setState({ success: true });
+        });
+        axios
+          .post("/api/project", { name, description, username, url })
+          .then(res => this.props.reqProjects())
+          .catch(err =>
+            alert(
+              `${err}: Project already exists. Upload new version on project card`
+            )
+          )
+          .catch(error => {
+            alert("ERROR " + JSON.stringify(error));
+          });
+      })
+      .catch(error => {
+        alert(JSON.stringify(error));
+      });
 
     this.clearInputFields();
   };

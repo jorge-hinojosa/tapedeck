@@ -29,7 +29,7 @@ export const reqUserData = () => {
 //Reducer Function
 export function userReducer(state = initialState, action) {
   const { type, payload } = action;
-  console.log(action);
+  console.log(state);
   switch (type) {
     case `${REQ_USER_DATA}_FULFILLED`:
       const {
