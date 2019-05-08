@@ -1,10 +1,12 @@
-$pri-color: black;
-$sec-color: whitesmoke;
-
+$pri-color: rgb(221, 155, 32);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
 .nav {
   width: 100vw;
   height: 7vh;
-  background-color: $pri-color;
+  background-color: $tri-color;
   color: $sec-color;
 
   display: flex;
@@ -22,20 +24,25 @@ $sec-color: whitesmoke;
 
     h1 {
       color: $sec-color;
+      font-family: $pri-font;
+      font-size: 2em;
     }
-
-    ul {
+    .cont {
       // border: 1px solid white;
-      width: 20vw;
-      list-style: none;
+      width: 10vw;
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
+      align-items: center;
       color: $sec-color;
-
-      .nav_link {
-        text-decoration: none;
+      cursor: pointer;
+      .Button {
+        margin-left: 10px;
+        max-width: auto;
+        border: none;
         color: $sec-color;
+        background: $pri-color;
+        font-family: $sec-font;
+        // text-decoration: none;
       }
     }
   }

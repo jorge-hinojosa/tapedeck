@@ -3,10 +3,16 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { reqProjects } from "../../../ducks/projectReducer";
 
+import styles from "./uploader.module.scss";
+
+import Input from "@material-ui/core/Input";
+import Button from "@material-ui/core/Button";
+
 class Uploader extends Component {
   constructor() {
     super();
     this.state = {
+      adding: false,
       name: "",
       description: "",
       username: "",
@@ -19,7 +25,14 @@ class Uploader extends Component {
   handleName = val => this.setState({ name: val });
   handleDesc = val => this.setState({ description: val });
   handleUsername = val => this.setState({ username: val });
-
+  addProjectToggle = () => {
+    const { adding } = this.state;
+    if (adding === false) {
+      this.setState({ adding: true });
+    } else if (adding === true) {
+      this.setState({ adding: false });
+    }
+  };
   uploadNew = e => {
     let file = e.target.files[0];
     // Split the filename to get the name and type
@@ -79,25 +92,36 @@ class Uploader extends Component {
     // console.log(this.props);
     return (
       <div>
-        <input
-          ref="projectName"
-          type="text"
-          placeholder="Project Name"
-          onChange={e => this.handleName(e.target.value)}
-        />
-        <input
-          ref="description"
-          type="text"
-          placeholder="Describe Edits"
-          onChange={e => this.handleDesc(e.target.value)}
-        />
-        <input
-          ref="username"
-          type="text"
-          placeholder="Username"
-          onChange={e => this.handleUsername(e.target.value)}
-        />
-        <input ref="file" type="file" onChange={this.uploadNew} />
+        {this.state.adding ? (
+          <div className={styles.form}>
+            Project Name:
+            <Input
+              ref="projectName"
+              type="text"
+              onChange={e => this.handleName(e.target.value)}
+            />
+            Initial Description:
+            <Input
+              ref="description"
+              type="text"
+              onChange={e => this.handleDesc(e.target.value)}
+            />
+            Username:
+            <Input
+              ref="username"
+              type="text"
+              onChange={e => this.handleUsername(e.target.value)}
+            />
+            {/* <label className={styles.fileContainer}> */}
+            <Input ref="file" type="file" onChange={this.uploadNew} />
+            {/* </label> */}
+            <Button onClick={() => this.addProjectToggle()}>Cancel</Button>
+          </div>
+        ) : (
+          <i onClick={() => this.addProjectToggle()} className="material-icons">
+            add_circle_outline
+          </i>
+        )}
       </div>
     );
   }

@@ -42,8 +42,9 @@ class Main extends Component {
             image={image}
             location={location}
           />
-          <ProjectList />
+
           <Uploader />
+          <ProjectList />
           {/* <FileUpload /> */}
         </div>
       </div>

@@ -1,7 +1,13 @@
+$pri-color: rgb(214, 144, 15);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
+
 .background {
   width: 100vw;
   height: 100vh;
-  background-color: whitesmoke;
+  background-color: $sec-color;
 
   display: flex;
   flex-direction: column;

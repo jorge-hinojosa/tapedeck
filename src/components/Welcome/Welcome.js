@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import styles from "./welcome.module.scss";
 import axios from "axios";
 
+import Button from "@material-ui/core/Button";
+
 class Welcome extends Component {
   constructor() {
     super();
@@ -69,10 +71,14 @@ class Welcome extends Component {
     return (
       <div className={styles.welcomeCont}>
         <div className={styles.imgCont}>
-          <img src="https://via.placeholder.com/900x937" alt="person" />
+          <img
+            // src='https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80'
+            src="https://s3-us-west-2.amazonaws.com/honey-bucket/photos/cassette-tape.jpg"
+            alt="TapeDeck"
+          />
         </div>
         <div className={styles.background}>
-          <h1>TapeDeck</h1>
+          <h1>T A P E D E C K</h1>
           {this.state.account === false ? (
             <div className={styles.login}>
               First Name:{" "}
@@ -109,10 +115,16 @@ class Welcome extends Component {
                 type="password"
               />{" "}
               <br />
-              <button onClick={this.signUp}>Sign-up</button> <br />
+              <Button className={styles.Button} onClick={this.signUp}>
+                Sign-up
+              </Button>{" "}
+              <br />
               {this.renderRedirect()}
               Already have an account?
-              <button onClick={this.hasAccount}>Login</button>{" "}
+              <br />
+              <Button className={styles.Button} onClick={this.hasAccount}>
+                Login
+              </Button>{" "}
             </div>
           ) : (
             <div className={styles.login}>
@@ -129,9 +141,13 @@ class Welcome extends Component {
                 type="password"
               />{" "}
               <br />
-              <button onClick={this.login} type="submit">
+              <Button
+                className={styles.Button}
+                onClick={this.login}
+                type="submit"
+              >
                 Login
-              </button>{" "}
+              </Button>{" "}
               {this.renderRedirect()}
             </div>
           )}

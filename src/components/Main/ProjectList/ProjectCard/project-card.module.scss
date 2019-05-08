@@ -1,32 +1,83 @@
-$pri-color: black;
-$sec-color: whitesmoke;
-$tri-color: darkgrey;
+$pri-color: rgb(221, 155, 32);
+$sec-color: white;
+$quad-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
 
 .projectCard {
-  width: 50vw;
-  height: 5vh;
+  width: 80vw;
+  height: auto;
   border-radius: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 15px;
   // box-shadow: $tri-color 2.3px 3px;
 
-  background-color: $pri-color;
-  color: $sec-color;
+  background-color: $sec-color;
+  color: $quad-color;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   .project_cont {
-    width: 45vw;
+    width: 70vw;
+    padding-bottom: 5px;
     display: flex;
     justify-content: space-between;
 
-    a {
-      text-decoration: none;
-      color: $sec-color;
-    }
-    .link {
-      cursor: pointer;
+    font-family: $sec-font;
+
+    .label {
+      font-size: 0.7em;
+      font-family: $sec-font;
     }
   }
+  .icons_cont {
+    // border: 1px black solid;
+    width: 80vw;
+    height: 2.5vh;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $pri-color;
+
+    .dropdown_cont {
+      // border: 1px solid black;
+      padding-left: 10px;
+      cursor: pointer;
+    }
+    .otherIcons_cont {
+      // border: 1px solid black;
+      padding-right: 10px;
+      // padding-top: 10px;
+      // padding-bottom: 10px;
+      width: 25vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+
+      a {
+        text-decoration: none;
+        color: $quad-color;
+      }
+    }
+  }
+  // .icons_cont_2 {
+  //   width: 70vw;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   flex-direction: row-reverse;
+
+  // }
+}
+.line {
+  width: 80;
+  height: 5px;
+  margin: 1em 0;
+
+  background-color: black;
 }

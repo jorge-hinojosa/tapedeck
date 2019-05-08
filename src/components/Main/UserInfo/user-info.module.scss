@@ -1,8 +1,22 @@
+$pri-color: rgb(221, 155, 32);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
+
 .user_card {
-  width: 25vw;
+  // border: 1px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: auto;
   height: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  font-family: $sec-font;
+  img {
+    max-width: 20vw;
+  }
 }

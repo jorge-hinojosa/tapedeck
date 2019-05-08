@@ -1,0 +1,41 @@
+$pri-color: rgb(214, 144, 15);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
+
+.form {
+  width: 80vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.searchResult_cont {
+  // border: 1px black solid;
+  width: 80vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .searchResult {
+    // border: 1px black solid;
+    width: 50vw;
+    background: $pri-color;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-family: $sec-font;
+    color: $tri-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

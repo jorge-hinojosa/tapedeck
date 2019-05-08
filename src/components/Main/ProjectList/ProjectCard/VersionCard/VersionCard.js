@@ -23,21 +23,26 @@ class VersionCard extends Component {
       <div className={styles.versionCard_cont}>
         <div className={styles.versionCard}>
           <div className={styles.cont}>
+            <i className="material-icons bullet-arrow">arrow_forward_ios</i>
             <span>{project_id}</span>
-            <span>{name}</span>
             <span>{description}</span>
             <span>{username}</span>
-            <span>
-              <a href={project_url} target="_blank" rel="noopener noreferrer">
-                download
-              </a>
-            </span>
-            <span
-              className={styles.link}
-              onClick={() => this.deleteVersion(version_id)}
-            >
-              delete
-            </span>
+            <div className={styles.icons_cont}>
+              <i className="material-icons">
+                <a href={project_url} target="_blank" rel="noopener noreferrer">
+                  cloud_download
+                </a>
+              </i>
+              <i className="material-icons" onClick={() => this.toggleEdit()}>
+                edit
+              </i>
+              <i
+                className="material-icons"
+                onClick={() => this.deleteVersion(version_id)}
+              >
+                delete
+              </i>
+            </div>
           </div>
         </div>
       </div>

@@ -129,36 +129,66 @@ class ProjectCard extends Component {
     return (
       <div className={styles.cont}>
         <div className={styles.projectCard}>
+          {/* <div className={styles.labels_cont}>
+            <span>Project Name: </span>
+            <span>Latest Edit: </span>
+            <span>Last Editted By: </span>
+          </div> */}
+          <div className={styles.icons_cont}>
+            <div className={styles.dropdown_cont}>
+              {!this.state.cardOpen ? (
+                <i className="material-icons" onClick={() => this.toggleCard()}>
+                  arrow_right
+                </i>
+              ) : (
+                <i className="material-icons" onClick={() => this.toggleCard()}>
+                  arrow_drop_down
+                </i>
+              )}
+            </div>
+            <div className={styles.otherIcons_cont}>
+              <i onClick={() => this.toggleInvite()} className="material-icons">
+                share
+              </i>
+              <i className="material-icons" onClick={() => this.toggleUpload()}>
+                cloud_upload
+              </i>
+              <i className="material-icons">
+                <a href={project_url} target="_blank" rel="noopener noreferrer">
+                  cloud_download
+                </a>
+              </i>
+              <i className="material-icons" onClick={() => this.toggleEdit()}>
+                edit
+              </i>
+              <i
+                className="material-icons"
+                onClick={() => deleteProject(project_id)}
+              >
+                delete
+              </i>
+            </div>
+          </div>
           <div className={styles.project_cont}>
-            <button onClick={() => this.toggleCard()}>open</button>
-            <span>{name}</span>
-            <span>{description}</span>
             <span>
+              <span className={styles.label}>Project Name:</span> <br />
+              {name}
+            </span>
+            <span>
+              <span className={styles.label}>Last Edit:</span> <br />
+              {description}
+            </span>
+            <span>
+              <span className={styles.label}>Last Editted By:</span> <br /> @
               {this.state.currVersionUsername !== ""
                 ? this.state.currVersionUsername
                 : this.props.username}
             </span>
-            <span onClick={() => this.toggleEdit()} className={styles.link}>
-              edit
-            </span>
-            <span onClick={() => this.toggleInvite()} className={styles.link}>
-              invite
-            </span>
-            <span onClick={() => this.toggleUpload()} className={styles.link}>
-              upload
-            </span>
-            <span>
-              <a href={project_url} target="_blank" rel="noopener noreferrer">
-                download
-              </a>
-            </span>
-            <span
-              className={styles.link}
-              onClick={() => deleteProject(project_id)}
-            >
-              delete
-            </span>
           </div>
+          {/* <div className={styles.icons_cont_2}>
+            
+            <div className={styles.line} />
+          </div> */}
         </div>
         {this.state.cardOpen ? viewVersions : null}
         {this.state.editting ? <div>editting</div> : null}

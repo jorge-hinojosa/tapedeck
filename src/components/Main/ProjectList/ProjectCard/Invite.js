@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import styles from "./invite.module.scss";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 
 class Invite extends Component {
   constructor() {
@@ -29,18 +32,25 @@ class Invite extends Component {
   render() {
     const viewSearchResults = this.state.searchResults.map(user => {
       return (
-        <h2 onClick={() => this.inviteUser(user.id)}>
-          {`${user.first_name} ${user.last_name}`}
-        </h2>
+        <div className={styles.searchResult_cont}>
+          <div
+            className={styles.searchResult}
+            onClick={() => this.inviteUser(user.id)}
+          >
+            <img src={user.image} alt={user.first_name} />
+            <h3>{`${user.first_name} ${user.last_name}`}</h3>
+            <h4>{`@${user.username}`}</h4>
+          </div>
+        </div>
       );
     });
     console.log(this.state.searchResults);
     return (
-      <div>
-        <input
-          placeholder="Enter name to invite to project"
-          onChange={e => this.handleChange(e.target.value)}
-        />
+      <div className={styles.form}>
+        <InputLabel>
+          Enter name or username to invite user to project:
+        </InputLabel>
+        <Input onChange={e => this.handleChange(e.target.value)} />
         {viewSearchResults}
       </div>
     );

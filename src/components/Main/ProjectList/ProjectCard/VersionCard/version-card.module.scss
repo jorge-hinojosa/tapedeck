@@ -1,39 +1,50 @@
-$pri-color: seagreen;
-$sec-color: whitesmoke;
-$tri-color: darkgrey;
+$pri-color: rgb(221, 155, 32);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
 
 .versionCard_cont {
-  width: 50vw;
+  width: 80vw;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 
   .versionCard {
-    width: 45vw;
+    // border: 1px solid black;
+    width: 75vw;
     height: 5vh;
     border-radius: 5px;
-    margin-bottom: 3px;
-    // box-shadow: $tri-color 2.3px 3px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
-    background-color: $pri-color;
-    color: $sec-color;
+    background-color: $sec-color;
+    color: $tri-color;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
+    .bullet-arrow {
+      position: absolute left;
+    }
     .cont {
-      width: 40vw;
+      width: 70vw;
       display: flex;
       justify-content: space-between;
 
-      a {
-        text-decoration: none;
-        color: $sec-color;
-      }
-      .link {
-        cursor: pointer;
+      font-family: $sec-font;
+
+      .icons_cont {
+        width: 13vw;
+        height: auto;
+        position: absolute right;
+        display: flex;
+        justify-content: space-between;
+        a {
+          text-decoration: none;
+          color: $tri-color;
+        }
       }
     }
   }
