@@ -8,6 +8,9 @@ class ProjectList extends Component {
   componentDidMount() {
     this.props.reqProjects();
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   this.props.reqProjects();
+  // }
   delete = project_id => {
     console.log(project_id);
     axios
@@ -20,13 +23,20 @@ class ProjectList extends Component {
   render() {
     const { projects } = this.props.projects;
     const projectList = projects.map((project, i) => {
-      const { project_id, name, description, username, project_url } = project;
+      const {
+        project_id,
+        name,
+        description,
+        latest_user,
+        project_url
+      } = project;
+      console.log(latest_user);
       return (
         <ProjectCard
           project_id={project_id}
           name={name}
           description={description}
-          username={username}
+          username={latest_user}
           project_url={project_url}
           deleteProject={this.delete}
           reqProjects={this.props.reqProjects}

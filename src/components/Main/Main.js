@@ -45,7 +45,6 @@ class Main extends Component {
 
           <Uploader />
           <ProjectList />
-          {/* <FileUpload /> */}
         </div>
       </div>
     );

@@ -40,6 +40,6 @@ exports.sign_s3 = (req, res) => {
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
-    res.json({ success: true, data: { returnData } });
+    res.json({ data: { returnData } });
   });
 };

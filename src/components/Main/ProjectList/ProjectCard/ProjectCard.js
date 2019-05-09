@@ -10,20 +10,11 @@ class ProjectCard extends Component {
     super();
     this.state = {
       versions: [],
-      currVersionUsername: "",
       cardOpen: false,
       editting: false,
       inviting: false,
       uploading: false
     };
-  }
-  componentDidMount() {
-    this.getCurrVersionUsername(this.props.project_id);
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.versions.length !== this.state.versions.length) {
-      this.getCurrVersionUsername(this.props.project_id);
-    }
   }
   toggleCard = () => {
     const { cardOpen } = this.state;
@@ -83,19 +74,8 @@ class ProjectCard extends Component {
     axios
       .get(`/api/project/versions/${project_id}`)
       .then(res => {
-        // console.log("VERSIONS ARRAY***", res.data);
+        // console.log("HERE");
         this.setState({ versions: res.data });
-        // console.log(this.state.versions);
-      })
-      .catch(err => console.log(err));
-  };
-  getCurrVersionUsername = project_id => {
-    axios
-      .get(`/api/project/${project_id}`)
-      .then(res => {
-        console.log(res);
-        this.setState({ currVersionUsername: res.data[0].username });
-        console.log(this.state.currVersionUsername);
       })
       .catch(err => console.log(err));
   };
@@ -129,11 +109,6 @@ class ProjectCard extends Component {
     return (
       <div className={styles.cont}>
         <div className={styles.projectCard}>
-          {/* <div className={styles.labels_cont}>
-            <span>Project Name: </span>
-            <span>Latest Edit: </span>
-            <span>Last Editted By: </span>
-          </div> */}
           <div className={styles.icons_cont}>
             <div className={styles.dropdown_cont}>
               {!this.state.cardOpen ? (
@@ -180,15 +155,9 @@ class ProjectCard extends Component {
             </span>
             <span>
               <span className={styles.label}>Last Editted By:</span> <br /> @
-              {this.state.currVersionUsername !== ""
-                ? this.state.currVersionUsername
-                : this.props.username}
+              {this.props.username}
             </span>
           </div>
-          {/* <div className={styles.icons_cont_2}>
-            
-            <div className={styles.line} />
-          </div> */}
         </div>
         {this.state.cardOpen ? viewVersions : null}
         {this.state.editting ? <div>editting</div> : null}
@@ -203,6 +172,7 @@ class ProjectCard extends Component {
             getAllVersions={this.getAllVersions}
             getCurrVersionUsername={this.getCurrVersionUsername}
             reqProjects={this.props.reqProjects}
+            toggleSuccess={this.toggleSuccess}
           />
         ) : null}
       </div>

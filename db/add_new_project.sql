@@ -1,4 +1,4 @@
-INSERT INTO project (name, description, username, project_url)
+INSERT INTO project (name, description, latest_user, project_url)
 VALUES ($1,
         $2,
         $3,
