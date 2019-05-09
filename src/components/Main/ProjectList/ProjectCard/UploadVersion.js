@@ -1,20 +1,41 @@
 import React, { Component } from "react";
 import axios from "axios";
+import styles from "./upload-version.module.scss";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import FormControl from "@material-ui/core/FormControl";
 
 class UploadVersion extends Component {
   constructor() {
     super();
     this.state = {
+      chosenFile: [],
       updatedDescription: "",
       updatedUsername: ""
       // url: ""
     };
   }
+  handleClick = () => {
+    this.uploadVersion();
+    this.props.toggleUpload();
+  };
   handleDesc = val => this.setState({ updatedDescription: val });
   handleUsername = val => this.setState({ updatedUsername: val });
 
-  uploadVersion = async e => {
-    let file = e.target.files[0];
+  chooseFile = e => {
+    console.log(e.target.files[0]);
+    this.setState({
+      chosenFile: [e.target.files[0]]
+    });
+  };
+
+  uploadVersion = async () => {
+    let file = this.state.chosenFile[0];
     // Split the filename to get the name and type
     let fileParts = file.name.split(".");
     let fileName = fileParts[0];
@@ -26,8 +47,7 @@ class UploadVersion extends Component {
       description,
       project_url,
       reqProjects,
-      username,
-      toggleSuccess
+      username
     } = this.props;
     const { updatedDescription, updatedUsername } = this.state;
     // console.log(username, updatedUsername);
@@ -93,27 +113,68 @@ class UploadVersion extends Component {
     this.clearInputFields();
   };
   clearInputFields = () => {
-    this.refs.description.value = "";
-    this.refs.username.value = "";
-    this.refs.file.value = "";
+    this.setState({
+      chosenFile: [],
+      updatedDescription: "",
+      updatedUsername: ""
+    });
   };
   render() {
     // console.log(this.props);
     return (
       <div>
-        <input
-          ref="description"
-          type="text"
-          placeholder="Describe Edits"
-          onChange={e => this.handleDesc(e.target.value)}
-        />
-        <input
-          ref="username"
-          type="text"
-          placeholder="Insert Username"
-          onChange={e => this.handleUsername(e.target.value)}
-        />
-        <input ref="file" type="file" onChange={this.uploadVersion} />
+        <Dialog
+          className={styles.newVersion_dialog}
+          open={this.props.uploading}
+          onClose={this.props.toggleUpload}
+        >
+          <DialogTitle id="form-dialog-title">Upload a New Version</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please fill out the form below.
+            </DialogContentText>
+            <FormControl className={styles.form}>
+              <TextField
+                label="Update Description"
+                // className={classes.textField}
+                value={this.state.updatedDescription}
+                onChange={e => this.handleDesc(e.target.value)}
+                margin="normal"
+              />
+              <TextField
+                label="Your Username"
+                // className={classes.textField}
+                value={this.state.updatedUsername}
+                onChange={e => this.handleUsername(e.target.value)}
+                margin="normal"
+              />
+              <input
+                // accept="image/*"
+                className={styles.uglyUpload}
+                id="contained-button-file"
+                // multiple
+                type="file"
+                onChange={this.chooseFile}
+              />
+              <label htmlFor="contained-button-file">
+                <Button
+                  variant="contained"
+                  component="span"
+                  // className={classes.button}
+                >
+                  Choose File <br />
+                  <i className="material-icons">cloud_upload</i>
+                </Button>
+              </label>
+            </FormControl>
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={() => this.handleClick()} variant="contained">
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

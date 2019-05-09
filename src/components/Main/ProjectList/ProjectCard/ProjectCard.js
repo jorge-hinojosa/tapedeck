@@ -172,7 +172,8 @@ class ProjectCard extends Component {
             getAllVersions={this.getAllVersions}
             getCurrVersionUsername={this.getCurrVersionUsername}
             reqProjects={this.props.reqProjects}
-            toggleSuccess={this.toggleSuccess}
+            uploading={this.state.uploading}
+            toggleUpload={this.toggleUpload}
           />
         ) : null}
       </div>

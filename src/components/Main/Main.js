@@ -7,17 +7,30 @@ import Nav from "./Nav/Nav";
 import UserInfo from "./UserInfo/UserInfo";
 import Uploader from "./Uploader/Uploader";
 import ProjectList from "./ProjectList/ProjectList";
+import Settings from "./Settings/Settings";
 
 class Main extends Component {
+  constructor() {
+    super();
+    this.state = {
+      settings: false
+    };
+  }
   componentDidMount() {
     this.props.reqUserData();
   }
-
   logout = () => {
     axios
       .get("/auth/logout")
       .then(res => {})
       .catch(err => console.log(err));
+  };
+  toggleSettings = () => {
+    if (this.state.settings === false) {
+      this.setState({ settings: true });
+    } else {
+      this.setState({ settings: false });
+    }
   };
   render() {
     const {
@@ -42,8 +55,8 @@ class Main extends Component {
             image={image}
             location={location}
           />
-
-          <Uploader />
+          {this.state.settings ? <Settings /> : null}
+          <Uploader toggleSettings={this.toggleSettings} />
           <ProjectList />
         </div>
       </div>

@@ -4,14 +4,9 @@ $tri-color: black;
 $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
-// .uploader_cont {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// }
-.newProject_dialog {
-  padding-left: 31vw;
-  width: 40vw;
+.newVersion_dialog {
+  padding-left: 5vw;
+  // width: 40vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +16,7 @@ i {
   cursor: pointer;
 }
 .form {
-  width: 30vw;
+  width: 25vw;
   display: flex;
   justify-content: center;
   align-items: center;

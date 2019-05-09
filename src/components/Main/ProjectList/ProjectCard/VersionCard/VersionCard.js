@@ -14,7 +14,7 @@ class VersionCard extends Component {
     const {
       version_id,
       project_id,
-      name,
+      // name,
       description,
       username,
       project_url

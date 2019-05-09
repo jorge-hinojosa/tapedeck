@@ -7,6 +7,13 @@ import styles from "./uploader.module.scss";
 
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import FormControl from "@material-ui/core/FormControl";
 
 class Uploader extends Component {
   constructor() {
@@ -16,15 +23,26 @@ class Uploader extends Component {
       name: "",
       description: "",
       username: "",
+      chosenFile: [],
       success: false,
       error: false,
       errorMessage: ""
     };
   }
 
+  handleClick = () => {
+    this.uploadNew();
+    this.addProjectToggle();
+  };
   handleName = val => this.setState({ name: val });
   handleDesc = val => this.setState({ description: val });
   handleUsername = val => this.setState({ username: val });
+  chooseFile = e => {
+    console.log(e.target.files[0]);
+    this.setState({
+      chosenFile: [e.target.files[0]]
+    });
+  };
   addProjectToggle = () => {
     const { adding } = this.state;
     if (adding === false) {
@@ -33,8 +51,9 @@ class Uploader extends Component {
       this.setState({ adding: false });
     }
   };
-  uploadNew = e => {
-    let file = e.target.files[0];
+  uploadNew = () => {
+    // let file = e.target.files[0];
+    let file = this.state.chosenFile[0];
     // Split the filename to get the name and type
     let fileParts = file.name.split(".");
     let fileName = fileParts[0];
@@ -83,45 +102,84 @@ class Uploader extends Component {
     this.clearInputFields();
   };
   clearInputFields = () => {
-    this.refs.projectName.value = "";
-    this.refs.description.value = "";
-    this.refs.username.value = "";
-    this.refs.file.value = "";
+    this.setState({
+      name: "",
+      description: "",
+      username: "",
+      chosenFile: []
+    });
   };
   render() {
     // console.log(this.props);
     return (
       <div>
-        {this.state.adding ? (
-          <div className={styles.form}>
-            Project Name:
-            <Input
-              ref="projectName"
-              type="text"
-              onChange={e => this.handleName(e.target.value)}
-            />
-            Initial Description:
-            <Input
-              ref="description"
-              type="text"
-              onChange={e => this.handleDesc(e.target.value)}
-            />
-            Username:
-            <Input
-              ref="username"
-              type="text"
-              onChange={e => this.handleUsername(e.target.value)}
-            />
-            {/* <label className={styles.fileContainer}> */}
-            <Input ref="file" type="file" onChange={this.uploadNew} />
-            {/* </label> */}
-            <Button onClick={() => this.addProjectToggle()}>Cancel</Button>
-          </div>
-        ) : (
+        <div className={styles.uploader_cont}>
           <i onClick={() => this.addProjectToggle()} className="material-icons">
-            add_circle_outline
+            add_circle
           </i>
-        )}
+          <i
+            onClick={() => this.props.toggleSettings()}
+            className="material-icons"
+          >
+            settings
+          </i>
+        </div>
+        {this.state.adding ? (
+          <Dialog
+            className={styles.newProject_dialog}
+            open={this.state.adding}
+            onClose={this.addProjectToggle}
+          >
+            <DialogTitle id="form-dialog-title">
+              Create a New Project
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please fill out the form below. If you wish to add a new version
+                to an existing project, please upload on an existing project
+                card.
+              </DialogContentText>
+              <FormControl className={styles.form}>
+                <TextField
+                  label="Project Name"
+                  value={this.state.name}
+                  onChange={e => this.handleName(e.target.value)}
+                  margin="normal"
+                />
+                <TextField
+                  label="Initial Description"
+                  value={this.state.description}
+                  onChange={e => this.handleDesc(e.target.value)}
+                  margin="normal"
+                />
+                <TextField
+                  label="Your Username"
+                  value={this.state.username}
+                  onChange={e => this.handleUsername(e.target.value)}
+                  margin="normal"
+                />
+                <input
+                  className={styles.uglyUpload}
+                  id="contained-button-file"
+                  type="file"
+                  onChange={this.chooseFile}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button variant="contained" component="span">
+                    Choose File <br />
+                    <i className="material-icons">cloud_upload</i>
+                  </Button>
+                </label>
+              </FormControl>
+            </DialogContent>
+
+            <DialogActions>
+              <Button onClick={() => this.handleClick()} variant="contained">
+                Create
+              </Button>
+            </DialogActions>
+          </Dialog>
+        ) : null}
       </div>
     );
   }

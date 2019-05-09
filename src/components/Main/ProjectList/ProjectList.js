@@ -8,9 +8,6 @@ class ProjectList extends Component {
   componentDidMount() {
     this.props.reqProjects();
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   this.props.reqProjects();
-  // }
   delete = project_id => {
     console.log(project_id);
     axios
