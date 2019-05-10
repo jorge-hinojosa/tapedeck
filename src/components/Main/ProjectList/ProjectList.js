@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { reqProjects } from "../../../ducks/projectReducer";
 import ProjectCard from "./ProjectCard/ProjectCard";
+import styles from "./projectlist.module.scss";
 
 class ProjectList extends Component {
   componentDidMount() {
@@ -19,29 +20,67 @@ class ProjectList extends Component {
   };
   render() {
     const { projects } = this.props.projects;
-    const projectList = projects.map((project, i) => {
+    const myProjectList = projects.map((project, i) => {
       const {
         project_id,
         name,
         description,
         latest_user,
-        project_url
+        project_url,
+        shared
       } = project;
-      console.log(latest_user);
-      return (
-        <ProjectCard
-          project_id={project_id}
-          name={name}
-          description={description}
-          username={latest_user}
-          project_url={project_url}
-          deleteProject={this.delete}
-          reqProjects={this.props.reqProjects}
-          key={i}
-        />
-      );
+      // console.log(latest_user);
+      if (shared === false) {
+        return (
+          <ProjectCard
+            project_id={project_id}
+            name={name}
+            description={description}
+            username={latest_user}
+            project_url={project_url}
+            deleteProject={this.delete}
+            reqProjects={this.props.reqProjects}
+            key={i}
+          />
+        );
+      }
     });
-    return <div>{projectList}</div>;
+
+    const otherProjectList = projects.map((project, i) => {
+      const {
+        project_id,
+        name,
+        description,
+        latest_user,
+        project_url,
+        shared
+      } = project;
+      // console.log(latest_user);
+      if (shared === true) {
+        return (
+          <ProjectCard
+            project_id={project_id}
+            name={name}
+            description={description}
+            username={latest_user}
+            project_url={project_url}
+            deleteProject={this.delete}
+            reqProjects={this.props.reqProjects}
+            key={i}
+          />
+        );
+      }
+    });
+    return (
+      <div>
+        <h2 className={styles.projectDivider}>My Projects:</h2>
+        {myProjectList.length === 0
+          ? console.log("add a new project")
+          : myProjectList}
+        <h2 className={styles.projectDivider}>Shared Projects:</h2>
+        {otherProjectList}
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {

@@ -28,12 +28,13 @@ class Main extends Component {
   toggleSettings = () => {
     if (this.state.settings === false) {
       this.setState({ settings: true });
-    } else {
+    } else if (this.state.settings === true) {
       this.setState({ settings: false });
     }
   };
   render() {
     const {
+      id,
       first_name,
       last_name,
       email,
@@ -55,7 +56,20 @@ class Main extends Component {
             image={image}
             location={location}
           />
-          {this.state.settings ? <Settings /> : null}
+          {this.state.settings ? (
+            <Settings
+              id={id}
+              settings={this.state.settings}
+              toggleSettings={this.toggleSettings}
+              first_name={first_name}
+              last_name={last_name}
+              email={email}
+              username={username}
+              bio={bio}
+              image={image}
+              location={location}
+            />
+          ) : null}
           <Uploader toggleSettings={this.toggleSettings} />
           <ProjectList />
         </div>

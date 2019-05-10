@@ -4,11 +4,14 @@ $tri-color: black;
 $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
-// .uploader_cont {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// }
+.uploader_cont {
+  // border: 1px solid black;
+  width: 80vw;
+  display: flex;
+  flex-direction: row-reverse;
+  // justify-content: space-between;
+  align-items: center;
+}
 .newProject_dialog {
   padding-left: 31vw;
   width: 40vw;

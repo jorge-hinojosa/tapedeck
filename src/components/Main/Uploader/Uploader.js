@@ -5,7 +5,7 @@ import { reqProjects } from "../../../ducks/projectReducer";
 
 import styles from "./uploader.module.scss";
 
-import Input from "@material-ui/core/Input";
+// import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -135,9 +135,8 @@ class Uploader extends Component {
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Please fill out the form below. If you wish to add a new version
-                to an existing project, please upload on an existing project
-                card.
+                Note: if you wish to add a new version to an existing project,
+                upload on an existing project card.
               </DialogContentText>
               <FormControl className={styles.form}>
                 <TextField

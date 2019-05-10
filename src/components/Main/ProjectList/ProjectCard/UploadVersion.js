@@ -171,7 +171,7 @@ class UploadVersion extends Component {
 
           <DialogActions>
             <Button onClick={() => this.handleClick()} variant="contained">
-              Create
+              Submit
             </Button>
           </DialogActions>
         </Dialog>

@@ -1,5 +1,3 @@
-let count = 0;
-
 module.exports = {
   addNewProject: async (req, res) => {
     const db = req.app.get("db");
@@ -35,7 +33,7 @@ module.exports = {
       .get_shared_projects(id)
       .catch(err => console.log(err));
     const allProjects = originalProjects.concat(sharedProjects);
-    console.log(allProjects);
+    // console.log(allProjects);
     res.status(200).json(allProjects);
   },
   getProject: async (req, res) => {
@@ -66,8 +64,6 @@ module.exports = {
     res.sendStatus(200);
   },
   addNewVersion: (req, res) => {
-    count++;
-    console.log("COUNT*** ", count);
     const db = req.app.get("db");
     const { project_id, name, description, username, project_url } = req.body;
     console.log(username);

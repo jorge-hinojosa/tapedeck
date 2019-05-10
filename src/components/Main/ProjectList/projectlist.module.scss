@@ -1,0 +1,11 @@
+$pri-color: rgb(221, 155, 32);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
+
+.projectDivider {
+  margin-bottom: 10px;
+  color: $tri-color;
+  font-family: $sec-font;
+}

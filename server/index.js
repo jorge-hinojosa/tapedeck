@@ -39,6 +39,7 @@ app.post("/auth/login", ac.login);
 app.post("/auth/signup", ac.signup);
 app.get("/auth/logout", ac.logout);
 app.get("/auth/user-data", ac.getUserData);
+app.put("/auth/user-data/:id", ac.editUser);
 
 //Project endpoints
 app.get("/api/project", pc.getAllProjects);
