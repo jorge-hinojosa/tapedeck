@@ -26,8 +26,14 @@ class Invite extends Component {
     const { project_id } = this.props;
     axios
       .post("/api/user", { user_id, project_id })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .then(res => {
+        console.log(res);
+        this.props.successToast();
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.errorToast();
+      });
   };
   render() {
     const viewSearchResults = this.state.searchResults.map(user => {

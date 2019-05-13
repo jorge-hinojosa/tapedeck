@@ -104,9 +104,11 @@ class UploadVersion extends Component {
               reqProjects();
             })
             .catch(err => console.log(err));
+          this.props.successToast();
         })
         .catch(err => {
           console.log(err);
+          this.props.errorToast("Could not upload version");
         });
     }
     this.props.getAllVersions(project_id);

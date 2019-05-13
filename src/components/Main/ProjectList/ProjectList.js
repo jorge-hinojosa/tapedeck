@@ -40,6 +40,8 @@ class ProjectList extends Component {
             project_url={project_url}
             deleteProject={this.delete}
             reqProjects={this.props.reqProjects}
+            successToast={this.props.successToast}
+            errorToast={this.props.errorToast}
             key={i}
           />
         );
@@ -66,6 +68,8 @@ class ProjectList extends Component {
             project_url={project_url}
             deleteProject={this.delete}
             reqProjects={this.props.reqProjects}
+            successToast={this.successToast}
+            errorToast={this.errorToast}
             key={i}
           />
         );

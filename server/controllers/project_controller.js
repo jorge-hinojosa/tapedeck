@@ -63,10 +63,35 @@ module.exports = {
     ]).catch(err => console.log(err));
     res.sendStatus(200);
   },
+  editProject: async (req, res) => {
+    const db = req.app.get("db");
+    const { id } = req.params;
+    const {
+      updatedProjectname,
+      updatedDescription,
+      username,
+      project_url
+    } = req.body;
+
+    await db
+      .update_current_version([
+        id,
+        updatedProjectname,
+        updatedDescription,
+        username,
+        project_url
+      ])
+      .catch(err => console.log(err));
+
+    await db
+      .edit_project_name([id, updatedProjectname])
+      .catch(err => console.log(err));
+    res.sendStatus(200);
+  },
   addNewVersion: (req, res) => {
     const db = req.app.get("db");
     const { project_id, name, description, username, project_url } = req.body;
-    console.log(username);
+    // console.log(username);
     db.add_version(project_id, name, description, username, project_url).catch(
       err => console.log(err)
     );
@@ -82,6 +107,30 @@ module.exports = {
     const db = req.app.get("db");
     const { id } = req.params;
     db.remove_version(id).catch(err => console.log(err));
+    res.sendStatus(200);
+  },
+  editVersion: async (req, res) => {
+    const db = req.app.get("db");
+    const { id } = req.params;
+    console.log(id);
+    const {
+      project_id,
+      name,
+      updatedDescription,
+      username,
+      project_url
+    } = req.body;
+
+    await db
+      .edit_version([
+        id,
+        project_id,
+        name,
+        updatedDescription,
+        username,
+        project_url
+      ])
+      .catch(err => console.log(err));
     res.sendStatus(200);
   }
 };

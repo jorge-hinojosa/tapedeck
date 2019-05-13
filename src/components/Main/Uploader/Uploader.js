@@ -85,12 +85,16 @@ class Uploader extends Component {
         });
         axios
           .post("/api/project", { name, description, username, url })
-          .then(res => this.props.reqProjects())
-          .catch(err =>
-            alert(
-              `${err}: Project already exists. Upload new version on project card`
-            )
-          )
+          .then(res => {
+            this.props.reqProjects();
+            this.props.successToast();
+          })
+          .catch(err => {
+            console.log(err);
+            this.props.errorToast(
+              "Project already exists. Upload new version on project card"
+            );
+          })
           .catch(error => {
             alert("ERROR " + JSON.stringify(error));
           });
@@ -114,14 +118,14 @@ class Uploader extends Component {
     return (
       <div>
         <div className={styles.uploader_cont}>
-          <i onClick={() => this.addProjectToggle()} className="material-icons">
-            add_circle
-          </i>
           <i
             onClick={() => this.props.toggleSettings()}
             className="material-icons"
           >
             settings
+          </i>
+          <i onClick={() => this.addProjectToggle()} className="material-icons">
+            add_circle
           </i>
         </div>
         {this.state.adding ? (

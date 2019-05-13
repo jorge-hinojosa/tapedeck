@@ -4,6 +4,7 @@ import styles from "./welcome.module.scss";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
+import { ToastContainer, toast } from "react-toastify";
 
 class Welcome extends Component {
   constructor() {
@@ -49,23 +50,36 @@ class Welcome extends Component {
             redirect: true
           });
         }
+      })
+      .catch(err => {
+        console.log(err);
+        this.errorToast("Error. Please check and fill all input fields.");
       });
   };
   login = () => {
     const { username, password } = this.state;
-    axios.post("/auth/login", { username, password }).then(res => {
-      if (res.data.username) {
-        this.setState({
-          loggedIn: true,
-          redirect: true
-        });
-      }
-    });
+    axios
+      .post("/auth/login", { username, password })
+      .then(res => {
+        if (res.data.username) {
+          this.setState({
+            loggedIn: true,
+            redirect: true
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.errorToast("Incorrect username or password, please try again.");
+      });
   };
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to="/main" />;
     }
+  };
+  errorToast = str => {
+    toast.error(str);
   };
   render() {
     return (
@@ -79,6 +93,10 @@ class Welcome extends Component {
         </div>
         <div className={styles.background}>
           <h1>T A P E D E C K</h1>
+          <ToastContainer
+            autoClose={4000}
+            position={toast.POSITION.BOTTOM_RIGHT}
+          />
           {this.state.account === false ? (
             <div className={styles.login}>
               First Name:{" "}

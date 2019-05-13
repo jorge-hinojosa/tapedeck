@@ -47,11 +47,13 @@ app.get("/api/project/:id", pc.getProject);
 app.post("/api/project", pc.addNewProject);
 app.delete("/api/project/:id", pc.removeProject);
 app.put("/api/project/:id", pc.updateCurrVersion);
+app.put("/api/project/edit/:id", pc.editProject);
 
 //Version endpoints
 app.get("/api/project/versions/:id", pc.getAllVersions);
 app.post("/api/project/versions", pc.addNewVersion);
 app.delete("/api/project/versions/:id", pc.removeVersion);
+app.put("/api/project/versions/:id", pc.editVersion);
 
 //User endpoints
 app.get("/api/user", uc.findUser);

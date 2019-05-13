@@ -8,6 +8,8 @@ import UserInfo from "./UserInfo/UserInfo";
 import Uploader from "./Uploader/Uploader";
 import ProjectList from "./ProjectList/ProjectList";
 import Settings from "./Settings/Settings";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class Main extends Component {
   constructor() {
@@ -18,6 +20,11 @@ class Main extends Component {
   }
   componentDidMount() {
     this.props.reqUserData();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.settings !== this.state.settings) {
+      this.props.reqUserData();
+    }
   }
   logout = () => {
     axios
@@ -32,6 +39,13 @@ class Main extends Component {
       this.setState({ settings: false });
     }
   };
+  successToast = () => {
+    toast.success("Success!");
+  };
+  errorToast = str => {
+    toast.error(str);
+  };
+
   render() {
     const {
       id,
@@ -47,6 +61,12 @@ class Main extends Component {
       <div className={styles.background}>
         <Nav logout={this.logout} />
         <div className={styles.main_cont}>
+          {/* <Snackbar /> */}
+          <Uploader
+            toggleSettings={this.toggleSettings}
+            successToast={this.successToast}
+            errorToast={this.errorToast}
+          />
           <UserInfo
             first_name={first_name}
             last_name={last_name}
@@ -68,10 +88,19 @@ class Main extends Component {
               bio={bio}
               image={image}
               location={location}
+              reqUserData={this.props.reqUserData}
+              successToast={this.successToast}
+              errorToast={this.errorToast}
             />
           ) : null}
-          <Uploader toggleSettings={this.toggleSettings} />
-          <ProjectList />
+          <ProjectList
+            successToast={this.successToast}
+            errorToast={this.errorToast}
+          />
+          <ToastContainer
+            autoClose={4000}
+            position={toast.POSITION.BOTTOM_RIGHT}
+          />
         </div>
       </div>
     );

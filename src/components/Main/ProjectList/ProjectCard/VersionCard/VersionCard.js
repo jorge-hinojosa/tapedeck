@@ -1,8 +1,20 @@
 import React, { Component } from "react";
 import styles from "./version-card.module.scss";
 import axios from "axios";
+import EditVersion from "./EditVersion";
 
 class VersionCard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      editting: false
+    };
+  }
+  toggleEdit = () => {
+    this.state.editting === true
+      ? this.setState({ editting: false })
+      : this.setState({ editting: true });
+  };
   deleteVersion = version_id => {
     axios
       .delete(`/api/project/versions/${version_id}`)
@@ -14,7 +26,7 @@ class VersionCard extends Component {
     const {
       version_id,
       project_id,
-      // name,
+      name,
       description,
       username,
       project_url
@@ -23,7 +35,7 @@ class VersionCard extends Component {
       <div className={styles.versionCard_cont}>
         <div className={styles.versionCard}>
           <div className={styles.cont}>
-            <i className="material-icons bullet-arrow">arrow_forward_ios</i>
+            <i className="material-icons bullet-arrow">play_arrow</i>
             <span>{project_id}</span>
             <span>{description}</span>
             <span>{username}</span>
@@ -33,9 +45,22 @@ class VersionCard extends Component {
                   cloud_download
                 </a>
               </i>
-              <i className="material-icons" onClick={() => this.toggleEdit()}>
+              <i className="material-icons" onClick={this.toggleEdit}>
                 edit
               </i>
+              {this.state.editting ? (
+                <EditVersion
+                  getAllVersions={this.props.getAllVersions}
+                  toggleEdit={this.toggleEdit}
+                  editting={this.state.editting}
+                  version_id={version_id}
+                  project_id={project_id}
+                  name={name}
+                  description={description}
+                  username={username}
+                  project_url={project_url}
+                />
+              ) : null}
               <i
                 className="material-icons"
                 onClick={() => this.deleteVersion(version_id)}

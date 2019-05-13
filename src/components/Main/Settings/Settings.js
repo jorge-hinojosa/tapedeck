@@ -25,39 +25,15 @@ class Settings extends Component {
       updatedBio: this.props.bio
     };
   }
+
   handleClick = () => {
     this.updatePicture();
-    this.editProfile();
     this.props.toggleSettings();
   };
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  editProfile = async () => {
-    const {
-      updatedFirstName,
-      updatedLastName,
-      updatedUsername,
-      updatePicture,
-      updatedLocation,
-      updatedBio
-    } = this.state;
-    const { id } = this.props;
-    await axios
-      .put(`/auth/user-data/${id}`, {
-        updatedFirstName,
-        updatedLastName,
-        updatedUsername,
-        updatePicture,
-        updatedLocation,
-        updatedBio
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.log(err));
-  };
-  updatePicture = () => {
+  updatePicture = async () => {
     // let file = e.target.files[0];
     let file = this.state.updatedImage[0];
     // Split the filename to get the name and type
@@ -65,9 +41,18 @@ class Settings extends Component {
     let fileName = `photos/${fileParts[0]}`;
     let fileType = fileParts[1];
 
+    const {
+      updatedFirstName,
+      updatedLastName,
+      updatedUsername,
+      updatedLocation,
+      updatedBio
+    } = this.state;
+    const { id } = this.props;
+
     console.log("Preparing the upload");
 
-    axios
+    await axios
       .post("/sign_s3", {
         fileName: fileName,
         fileType: fileType
@@ -75,7 +60,7 @@ class Settings extends Component {
       .then(response => {
         var returnData = response.data.data.returnData;
         var signedRequest = returnData.signedRequest;
-        // var url = returnData.url;
+        var newImageUrl = returnData.url;
         // this.setState({ url: url });
         console.log("Recieved a signed request " + signedRequest);
 
@@ -88,11 +73,30 @@ class Settings extends Component {
           console.log("Response from s3");
           // this.setState({ success: true });
         });
+        axios
+          .put(`/auth/user-data/${id}`, {
+            updatedFirstName,
+            updatedLastName,
+            updatedUsername,
+            newImageUrl,
+            updatedLocation,
+            updatedBio
+          })
+          .then(res => {
+            console.log(res);
+            this.props.reqUserData();
+            this.props.successToast();
+          })
+          .catch(err => {
+            console.log(err);
+            this.props.errorToast("An error occured.");
+          });
       })
-      .catch(error => {
-        alert(JSON.stringify(error));
+      .catch(err => {
+        console.log(err);
+        this.props.errorToast("An error occured");
       });
-
+    // this.props.reqUserData();
     this.resetInputFields();
   };
   resetInputFields = () => {

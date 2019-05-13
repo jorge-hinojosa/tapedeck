@@ -71,20 +71,43 @@ module.exports = {
     if (user) return res.status(200).json(user);
     else return res.sendStatus(401);
   },
-  editUser: (req, res) => {
+  editUser: async (req, res) => {
     const db = req.app.get("db");
-    const { first_name, last_name, username, image, location, bio } = req.body;
+    const {
+      updatedFirstName,
+      updatedLastName,
+      updatedUsername,
+      newImageUrl,
+      updatedLocation,
+      updatedBio
+    } = req.body;
     const { id } = req.params;
 
-    db.edit_profile([
-      id,
-      first_name,
-      last_name,
-      username,
-      image,
-      location,
-      bio
-    ]).catch(err => console.log(err));
+    await db
+      .edit_profile([
+        id,
+        updatedFirstName,
+        updatedLastName,
+        updatedUsername,
+        newImageUrl,
+        updatedLocation,
+        updatedBio
+      ])
+      .catch(err => console.log(err));
+
+    const result = await db.get_user_by_id(id).catch(err => console.log(err));
+    // console.log(result);
+    const newUserInfo = result[0];
+
+    req.session.user = {
+      id: id,
+      username: newUserInfo.username,
+      first_name: newUserInfo.first_name,
+      last_name: newUserInfo.last_name,
+      bio: newUserInfo.bio,
+      image: newUserInfo.image,
+      location: newUserInfo.location
+    };
     res.sendStatus(200);
   }
 };

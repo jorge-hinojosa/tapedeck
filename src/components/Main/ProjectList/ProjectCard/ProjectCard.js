@@ -4,6 +4,7 @@ import axios from "axios";
 import VersionCard from "./VersionCard/VersionCard";
 import UploadVersion from "./UploadVersion";
 import Invite from "./Invite";
+import EditProject from "./EditProject";
 
 class ProjectCard extends Component {
   constructor() {
@@ -101,6 +102,8 @@ class ProjectCard extends Component {
           username={version.username}
           project_url={version.project_url}
           getAllVersions={this.getAllVersions}
+          successToast={this.props.successToast}
+          errorToast={this.props.errorToast}
           key={i}
         />
       );
@@ -160,8 +163,27 @@ class ProjectCard extends Component {
           </div>
         </div>
         {this.state.cardOpen ? viewVersions : null}
-        {this.state.editting ? <div>editting</div> : null}
-        {this.state.inviting ? <Invite project_id={project_id} /> : null}
+        {this.state.editting ? (
+          <EditProject
+            editting={this.state.editting}
+            project_id={project_id}
+            name={name}
+            description={description}
+            username={username}
+            project_url={project_url}
+            toggleEdit={this.toggleEdit}
+            reqProjects={this.props.reqProjects}
+            successToast={this.props.successToast}
+            errorToast={this.props.errorToast}
+          />
+        ) : null}
+        {this.state.inviting ? (
+          <Invite
+            project_id={project_id}
+            successToast={this.props.successToast}
+            errorToast={this.props.errorToast}
+          />
+        ) : null}
         {this.state.uploading ? (
           <UploadVersion
             project_id={project_id}
@@ -174,6 +196,8 @@ class ProjectCard extends Component {
             reqProjects={this.props.reqProjects}
             uploading={this.state.uploading}
             toggleUpload={this.toggleUpload}
+            successToast={this.props.successToast}
+            errorToast={this.props.errorToast}
           />
         ) : null}
       </div>

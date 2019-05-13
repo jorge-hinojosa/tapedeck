@@ -9,10 +9,10 @@ function UserInfo(props) {
         <h2>
           {props.first_name} {props.last_name}
         </h2>
-        <h2>@{props.username}</h2>
-        <h2>{props.email}</h2>
-        <h2>{props.location}</h2>
-        <h2>{props.bio}</h2>
+        <h3>@{props.username}</h3>
+        <h3>{props.email}</h3>
+        <h3>{props.bio}</h3>
+        <h3>{props.location}</h3>
       </div>
     </div>
   );

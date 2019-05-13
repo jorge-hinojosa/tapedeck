@@ -20,6 +20,7 @@ export const reqUserData = () => {
     payload: axios
       .get("/auth/user-data")
       .then(res => {
+        console.log(res.data);
         return res.data;
       })
       .catch(err => console.log(err))
