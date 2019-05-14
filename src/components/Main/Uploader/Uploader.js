@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { reqProjects } from "../../../ducks/projectReducer";
+// import { reqUserData } from "../../../ducks/userReducer";
 
 import styles from "./uploader.module.scss";
 
@@ -16,30 +17,27 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControl from "@material-ui/core/FormControl";
 
 class Uploader extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    console.log(this.props);
     this.state = {
       adding: false,
       name: "",
       description: "",
       username: "",
       chosenFile: [],
-      uploadDate: "",
       success: false,
       error: false,
       errorMessage: ""
     };
   }
-  componentDidMount() {
-    this.getUploadDate();
-  }
   handleClick = () => {
     this.uploadNew();
     this.addProjectToggle();
   };
-  handleName = val => this.setState({ name: val });
-  handleDesc = val => this.setState({ description: val });
-  handleUsername = val => this.setState({ username: val });
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
   chooseFile = e => {
     console.log(e.target.files[0]);
     this.setState({
@@ -52,17 +50,8 @@ class Uploader extends Component {
       this.setState({ adding: true });
     } else if (adding === true) {
       this.setState({ adding: false });
+      this.clearInputFields();
     }
-  };
-  getUploadDate = () => {
-    let today = new Date();
-    let date =
-      today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
-    let time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    let dateTime = date + " " + time;
-
-    this.setState({ uploadDate: dateTime });
   };
   uploadNew = () => {
     // let file = e.target.files[0];
@@ -72,10 +61,19 @@ class Uploader extends Component {
     let fileName = fileParts[0];
     let fileType = fileParts[1];
 
-    const { name, description, username, uploadDate } = this.state;
+    const { name, description, username } = this.state;
+
+    //Get Timestamp
+    let today = new Date();
+    let date =
+      today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
+    let time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let uploadDate = date + " " + time;
 
     console.log("Preparing the upload");
 
+    //Upload file to S3 and Db
     axios
       .post("/sign_s3", {
         fileName: fileName,
@@ -134,7 +132,6 @@ class Uploader extends Component {
     });
   };
   render() {
-    // console.log(this.props);
     return (
       <div>
         <div className={styles.uploader_cont}>
@@ -158,28 +155,34 @@ class Uploader extends Component {
               Create a New Project
             </DialogTitle>
             <DialogContent>
-              <DialogContentText>
-                Note: if you wish to add a new version to an existing project,
-                upload on an existing project card.
-              </DialogContentText>
-              <FormControl className={styles.form}>
+              <FormControl margin="dense" className={styles.form}>
+                <DialogContentText>
+                  Note: if you wish to add a new version to an existing project,
+                  upload on an existing project card.
+                </DialogContentText>
                 <TextField
+                  className={styles.textfield}
                   label="Project Name"
                   value={this.state.name}
-                  onChange={e => this.handleName(e.target.value)}
+                  onChange={this.handleChange}
                   margin="normal"
+                  name="name"
                 />
                 <TextField
+                  className={styles.textfield}
                   label="Initial Description"
                   value={this.state.description}
-                  onChange={e => this.handleDesc(e.target.value)}
+                  onChange={this.handleChange}
                   margin="normal"
+                  name="description"
                 />
                 <TextField
+                  className={styles.textfield}
                   label="Your Username"
-                  value={this.state.username}
-                  onChange={e => this.handleUsername(e.target.value)}
+                  defaultValue={this.state.username}
+                  onChange={this.handleChange}
                   margin="normal"
+                  name="username"
                 />
                 <input
                   className={styles.uglyUpload}
@@ -187,11 +190,21 @@ class Uploader extends Component {
                   type="file"
                   onChange={this.chooseFile}
                 />
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" component="span">
+                <label
+                  className={styles.button_cont}
+                  htmlFor="contained-button-file"
+                >
+                  <Button
+                    className={styles.button}
+                    variant="contained"
+                    component="span"
+                  >
                     Choose File <br />
                     <i className="material-icons">cloud_upload</i>
                   </Button>
+                  {this.state.chosenFile.length > 0 ? (
+                    <i className="material-icons">check_circle</i>
+                  ) : null}
                 </label>
               </FormControl>
             </DialogContent>
@@ -209,8 +222,8 @@ class Uploader extends Component {
 }
 const mapStateToProps = state => {
   return {
-    projects: state.projects,
-    user: state.user
+    projects: state.projects
+    // user: state.user
   };
 };
 export default connect(

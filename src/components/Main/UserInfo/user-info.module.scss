@@ -4,6 +4,22 @@ $tri-color: black;
 $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
+$breakpoints: (
+  "standard": 900px,
+  "wide": 1200px
+);
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
 .user_card {
   // border: 1px black solid;
   margin-bottom: 10px;
@@ -18,61 +34,39 @@ $sec-font: "IBM Plex Mono", monospace;
     border-radius: 1vw;
     margin-right: 30px;
     max-width: 20vw;
+    @include mq("standard") {
+      max-width: 15vw;
+    }
+    @include mq("wide") {
+      max-width: 12vw;
+    }
   }
   .info_cont {
     line-height: 1vh;
-    h2 {
+
+    .userInfo {
+      font-size: 1.2em;
+      font-family: $sec-font;
+      color: $tri-color;
+      @include mq("standard") {
+        font-size: 1.4em;
+      }
+      @include mq("wide") {
+        font-size: 1.5em;
+      }
+    }
+    .fullName {
+      @extend .userInfo;
+      font-size: 1.5em;
       margin-bottom: 25px;
-    }
-  }
-  font-family: $sec-font;
-}
-
-@media (min-width: 900px) {
-  .user_card {
-    margin-bottom: 10px;
-    width: auto;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    img {
-      border-radius: 1vw;
-      margin-right: 30px;
-      max-width: 15vw;
-    }
-    .info_cont {
-      line-height: 1vh;
-      h2 {
-        margin-bottom: 25px;
+      @include mq("standard") {
+        font-size: 1.6em;
+        margin-bottom: 30px;
+      }
+      @include mq("wide") {
+        font-size: 1.7em;
+        margin-bottom: 40px;
       }
     }
-    font-family: $sec-font;
-  }
-}
-@media (min-width: 1200px) {
-  .user_card {
-    margin-bottom: 10px;
-    width: auto;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    img {
-      border-radius: 1vw;
-      margin-right: 30px;
-      max-width: 12vw;
-    }
-    .info_cont {
-      line-height: 1vh;
-      h2 {
-        margin-bottom: 25px;
-      }
-    }
-    font-family: $sec-font;
   }
 }

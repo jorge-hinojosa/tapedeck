@@ -5,13 +5,13 @@ $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
 .form {
-  width: 50vw;
+  width: 40vw;
   // background: $tri-color;
   display: flex;
   justify-content: center;
   align-items: center;
   .textField {
-    width: 40vw;
+    width: 35vw;
     // color: $sec-color;
   }
 }
@@ -32,4 +32,68 @@ $sec-font: "IBM Plex Mono", monospace;
 
 .uglyUpload {
   display: none;
+}
+
+@media (min-width: 900px) {
+  .form {
+    width: 30vw;
+    // background: $tri-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .textField {
+      width: 25vw;
+      // color: $sec-color;
+    }
+  }
+
+  .button_cont {
+    // border: 1px solid black;
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .button {
+      // background: $pri-color;
+      // color: $sec-color;
+      margin-right: 5px;
+    }
+  }
+
+  .uglyUpload {
+    display: none;
+  }
+}
+
+@media (min-width: 1300px) {
+  .form {
+    width: 20vw;
+    // background: $tri-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .textField {
+      width: 15vw;
+      // color: $sec-color;
+    }
+  }
+
+  .button_cont {
+    // border: 1px solid black;
+    width: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .button {
+      // background: $pri-color;
+      // color: $sec-color;
+      margin-right: 5px;
+    }
+  }
+
+  .uglyUpload {
+    display: none;
+  }
 }

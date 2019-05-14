@@ -86,15 +86,15 @@ class Welcome extends Component {
       <div className={styles.welcomeCont}>
         <div className={styles.background}>
           <h1>
-            <img
+            {/* <img
               src="https://image.flaticon.com/icons/png/512/1789/1789303.png"
               alt="TapeDeck"
-            />
+            /> */}
             T A P E D E C K
           </h1>
           <ToastContainer
             autoClose={4000}
-            position={toast.POSITION.BOTTOM_RIGHT}
+            position={toast.POSITION.BOTTOM_LEFT}
           />
           {this.state.account === false ? (
             <div className={styles.login}>

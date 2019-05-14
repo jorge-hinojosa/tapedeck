@@ -6,13 +6,13 @@ function UserInfo(props) {
     <div className={styles.user_card}>
       <img src={props.image} alt={props.first_name} />
       <div className={styles.info_cont}>
-        <h2>
+        <h3 className={styles.fullName}>
           {props.first_name} {props.last_name}
-        </h2>
-        <h3>@{props.username}</h3>
-        <h3>{props.email}</h3>
-        <h3>{props.bio}</h3>
-        <h3>{props.location}</h3>
+        </h3>
+        <h3 className={styles.userInfo}>@{props.username}</h3>
+        <h3 className={styles.userInfo}>{props.email}</h3>
+        <h3 className={styles.userInfo}>{props.bio}</h3>
+        <h3 className={styles.userInfo}>{props.location}</h3>
       </div>
     </div>
   );

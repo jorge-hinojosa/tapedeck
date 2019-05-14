@@ -23,14 +23,15 @@ class EditProject extends Component {
   };
   updateProject = () => {
     const { updatedProjectname, updatedDescription } = this.state;
-    const { project_id, username, project_url } = this.props;
+    const { project_id, username, project_url, upload_date } = this.props;
     axios
       .put(`/api/project/edit/${project_id}`, {
         project_id,
         updatedProjectname,
         updatedDescription,
         username,
-        project_url
+        project_url,
+        upload_date
       })
       .then(res => {
         this.props.reqProjects();

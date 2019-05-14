@@ -66,6 +66,8 @@ class Main extends Component {
             toggleSettings={this.toggleSettings}
             successToast={this.successToast}
             errorToast={this.errorToast}
+            username={username}
+            reqUserData={this.props.reqUserData}
           />
           <UserInfo
             first_name={first_name}

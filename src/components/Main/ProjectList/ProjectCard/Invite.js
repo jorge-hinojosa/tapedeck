@@ -32,7 +32,7 @@ class Invite extends Component {
       })
       .catch(err => {
         console.log(err);
-        this.props.errorToast();
+        this.props.errorToast("Could not invite user, try again later.");
       });
   };
   render() {

@@ -18,8 +18,11 @@ class VersionCard extends Component {
   deleteVersion = version_id => {
     axios
       .delete(`/api/project/versions/${version_id}`)
-      .then(res => {})
-      .catch(err => console.log(err));
+      .then(res => this.props.successToast())
+      .catch(err => {
+        console.log(err);
+        this.props.errorToast();
+      });
     this.props.getAllVersions(this.props.project_id);
   };
   render() {
@@ -30,7 +33,9 @@ class VersionCard extends Component {
       description,
       username,
       project_url,
-      upload_date
+      upload_date,
+      successToast,
+      errorToast
     } = this.props;
     return (
       <div className={styles.versionCard_cont}>
@@ -64,6 +69,8 @@ class VersionCard extends Component {
                   description={description}
                   username={username}
                   project_url={project_url}
+                  successToast={successToast}
+                  errorToast={errorToast}
                 />
               ) : null}
               <i

@@ -58,6 +58,7 @@ class ProjectList extends Component {
         description,
         latest_user,
         project_url,
+        upload_date,
         shared
       } = project;
       // console.log(latest_user);
@@ -69,6 +70,7 @@ class ProjectList extends Component {
             description={description}
             username={latest_user}
             project_url={project_url}
+            upload_date={upload_date}
             deleteProject={this.delete}
             reqProjects={this.props.reqProjects}
             successToast={this.successToast}

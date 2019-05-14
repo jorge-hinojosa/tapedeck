@@ -52,7 +52,6 @@ $sec-font: "IBM Plex Mono", monospace;
       .project_info {
         // border: 1px solid black;
         display: flex;
-        // flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 0;
@@ -96,8 +95,6 @@ $sec-font: "IBM Plex Mono", monospace;
     .otherIcons_cont {
       // border: 1px solid black;
       padding-right: 10px;
-      // padding-top: 10px;
-      // padding-bottom: 10px;
       width: 25vw;
       display: flex;
       justify-content: space-between;
@@ -110,13 +107,6 @@ $sec-font: "IBM Plex Mono", monospace;
       }
     }
   }
-  // .icons_cont_2 {
-  //   width: 70vw;
-  //   display: flex;
-  //   justify-content: space-between;
-  //   flex-direction: row-reverse;
-
-  // }
 }
 .line {
   width: 80;

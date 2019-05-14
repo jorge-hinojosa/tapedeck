@@ -77,7 +77,8 @@ module.exports = {
       updatedProjectname,
       updatedDescription,
       username,
-      project_url
+      project_url,
+      upload_date
     } = req.body;
 
     await db
@@ -86,7 +87,8 @@ module.exports = {
         updatedProjectname,
         updatedDescription,
         username,
-        project_url
+        project_url,
+        upload_date
       ])
       .catch(err => console.log(err));
 

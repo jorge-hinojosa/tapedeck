@@ -178,7 +178,10 @@ class UploadVersion extends Component {
                 type="file"
                 onChange={this.chooseFile}
               />
-              <label htmlFor="contained-button-file">
+              <label
+                className={styles.button_cont}
+                htmlFor="contained-button-file"
+              >
                 <Button
                   variant="contained"
                   component="span"
@@ -187,6 +190,9 @@ class UploadVersion extends Component {
                   Choose File <br />
                   <i className="material-icons">cloud_upload</i>
                 </Button>
+                {this.state.chosenFile.length > 0 ? (
+                  <i className="material-icons">check_circle</i>
+                ) : null}
               </label>
             </FormControl>
           </DialogContent>

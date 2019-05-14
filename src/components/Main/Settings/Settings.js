@@ -127,7 +127,7 @@ class Settings extends Component {
           <DialogContentText>
             Update your profile settings here:
           </DialogContentText>
-          <FormControl className={styles.form}>
+          <FormControl margin="dense" className={styles.form}>
             <TextField
               className={styles.textField}
               label="Change Username"

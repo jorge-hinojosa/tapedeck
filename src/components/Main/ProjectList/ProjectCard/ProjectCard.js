@@ -195,6 +195,7 @@ class ProjectCard extends Component {
             description={description}
             username={username}
             project_url={project_url}
+            upload_date={upload_date}
             toggleEdit={this.toggleEdit}
             reqProjects={this.props.reqProjects}
             successToast={this.props.successToast}
