@@ -10,6 +10,9 @@ const uc = require("./controllers/user_controller");
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const app = express();
 
+const __dirname = require("../build");
+app.use(express.static(`${__dirname}/../build`));
+
 //DB Connection
 massive(CONNECTION_STRING)
   .then(db => {
