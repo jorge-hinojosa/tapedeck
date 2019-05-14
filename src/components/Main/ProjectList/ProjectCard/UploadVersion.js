@@ -171,10 +171,8 @@ class UploadVersion extends Component {
                 margin="normal"
               />
               <input
-                // accept="image/*"
                 className={styles.uglyUpload}
                 id="contained-button-file"
-                // multiple
                 type="file"
                 onChange={this.chooseFile}
               />
