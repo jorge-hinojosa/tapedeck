@@ -125,10 +125,11 @@ class Settings extends Component {
         <DialogTitle id="form-dialog-title">Edit Profile</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Update you profile settings here:
+            Update your profile settings here:
           </DialogContentText>
           <FormControl className={styles.form}>
             <TextField
+              className={styles.textField}
               label="Change Username"
               // className={classes.textField}
               defaultValue={this.props.username}
@@ -137,6 +138,7 @@ class Settings extends Component {
               name="updatedUsername"
             />
             <TextField
+              className={styles.textField}
               label="Change First Name"
               // className={classes.textField}
               defaultValue={this.props.first_name}
@@ -145,6 +147,7 @@ class Settings extends Component {
               name="updatedFirstName"
             />
             <TextField
+              className={styles.textField}
               label="Change Last Name"
               // className={classes.textField}
               defaultValue={this.props.last_name}
@@ -153,6 +156,7 @@ class Settings extends Component {
               name="updatedLastName"
             />
             <TextField
+              className={styles.textField}
               label="Update Bio"
               // className={classes.textField}
               defaultValue={
@@ -163,6 +167,7 @@ class Settings extends Component {
               name="updatedBio"
             />
             <TextField
+              className={styles.textField}
               label="Update Location"
               // className={classes.textField}
               defaultValue={
@@ -174,6 +179,7 @@ class Settings extends Component {
               margin="normal"
               name="updatedLocation"
             />
+            <br />
             <input
               accept="image/*"
               className={styles.uglyUpload}
@@ -182,20 +188,31 @@ class Settings extends Component {
               value=""
               onChange={this.choosePicture}
             />
-            <label htmlFor="contained-button-file">
+            <label
+              className={styles.button_cont}
+              htmlFor="contained-button-file"
+            >
               <Button
                 variant="contained"
                 component="span"
-                // className={classes.button}
+                className={styles.button}
               >
-                Choose Pro Pic
+                Choose Pro Pic <br />
+                <i className="material-icons">cloud_upload</i>
               </Button>
+              {this.state.updatedImage.length > 0 ? (
+                <i className="material-icons">check_circle</i>
+              ) : null}
             </label>
           </FormControl>
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={() => this.handleClick()} variant="contained">
+          <Button
+            onClick={() => this.handleClick()}
+            variant="contained"
+            className={styles.button}
+          >
             Update
           </Button>
         </DialogActions>

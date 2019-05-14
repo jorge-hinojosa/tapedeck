@@ -37,3 +37,16 @@ i {
     display: none;
   }
 }
+
+@media (min-width: 900px) {
+  .uploader_cont {
+    margin-top: 10px;
+    margin-bottom: 0;
+    // border: 1px solid black;
+    width: 70vw;
+    display: flex;
+    flex-direction: row-reverse;
+    // justify-content: space-between;
+    align-items: center;
+  }
+}

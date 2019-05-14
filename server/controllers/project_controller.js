@@ -1,7 +1,7 @@
 module.exports = {
   addNewProject: async (req, res) => {
     const db = req.app.get("db");
-    const { name, description, username, url } = req.body;
+    const { name, description, username, url, uploadDate } = req.body;
     const { id } = req.session.user;
 
     const result = await db
@@ -10,7 +10,7 @@ module.exports = {
 
     if (result[0] === undefined) {
       const newProjectId = await db
-        .add_new_project([name, description, username, url])
+        .add_new_project([name, description, username, url, uploadDate])
         .catch(err => console.log(err));
       // console.log(newProjectId[0].id);
       db.add_to_projectlist([id, newProjectId[0].id]).catch(err =>
@@ -52,14 +52,21 @@ module.exports = {
   updateCurrVersion: (req, res) => {
     const db = req.app.get("db");
     const { id } = req.params;
-    const { name, updatedDescription, updatedUsername, url } = req.body;
+    const {
+      name,
+      updatedDescription,
+      updatedUsername,
+      url,
+      updatedUploadDate
+    } = req.body;
 
     db.update_current_version([
       id,
       name,
       updatedDescription,
       updatedUsername,
-      url
+      url,
+      updatedUploadDate
     ]).catch(err => console.log(err));
     res.sendStatus(200);
   },
@@ -90,11 +97,23 @@ module.exports = {
   },
   addNewVersion: (req, res) => {
     const db = req.app.get("db");
-    const { project_id, name, description, username, project_url } = req.body;
+    const {
+      project_id,
+      name,
+      description,
+      username,
+      project_url,
+      upload_date
+    } = req.body;
     // console.log(username);
-    db.add_version(project_id, name, description, username, project_url).catch(
-      err => console.log(err)
-    );
+    db.add_version(
+      project_id,
+      name,
+      description,
+      username,
+      project_url,
+      upload_date
+    ).catch(err => console.log(err));
     res.sendStatus(200);
   },
   getAllVersions: async (req, res) => {

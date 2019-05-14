@@ -4,6 +4,7 @@ import axios from "axios";
 import { reqProjects } from "../../../ducks/projectReducer";
 import ProjectCard from "./ProjectCard/ProjectCard";
 import styles from "./projectlist.module.scss";
+import NoProjects from "./NoProjects";
 
 class ProjectList extends Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class ProjectList extends Component {
         description,
         latest_user,
         project_url,
+        upload_date,
         shared
       } = project;
       // console.log(latest_user);
@@ -38,6 +40,7 @@ class ProjectList extends Component {
             description={description}
             username={latest_user}
             project_url={project_url}
+            upload_date={upload_date}
             deleteProject={this.delete}
             reqProjects={this.props.reqProjects}
             successToast={this.props.successToast}
@@ -77,12 +80,11 @@ class ProjectList extends Component {
     });
     return (
       <div>
-        <h2 className={styles.projectDivider}>My Projects:</h2>
-        {myProjectList.length === 0
-          ? console.log("add a new project")
-          : myProjectList}
-        <h2 className={styles.projectDivider}>Shared Projects:</h2>
-        {otherProjectList}
+        {/* {loading ? <div>Loading</div> : null} */}
+        <h2 className={styles.projectDivider}>My Projects:</h2> <br />
+        {myProjectList.length === 0 ? <NoProjects /> : myProjectList}
+        <h2 className={styles.projectDivider}>Shared Projects:</h2> <br />
+        {otherProjectList.length === 0 ? <NoProjects /> : otherProjectList}
       </div>
     );
   }

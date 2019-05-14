@@ -1,3 +1,35 @@
+$pri-color: rgb(214, 144, 15);
+$sec-color: white;
+$tri-color: black;
+$pri-font: "Bungee Shade", cursive;
+$sec-font: "IBM Plex Mono", monospace;
+
+.form {
+  width: 50vw;
+  // background: $tri-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .textField {
+    width: 40vw;
+    // color: $sec-color;
+  }
+}
+
+.button_cont {
+  // border: 1px solid black;
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .button {
+    // background: $pri-color;
+    // color: $sec-color;
+    margin-right: 5px;
+  }
+}
+
 .uglyUpload {
   display: none;
 }

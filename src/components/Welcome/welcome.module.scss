@@ -1,62 +1,70 @@
 $pri-color: rgb(214, 144, 15);
 $sec-color: white;
+$tri-color: black;
 $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
 .welcomeCont {
   margin: 0;
+  background: $pri-color;
+  // z-index: 0;
   // max-width: 100vw;
   display: flex;
   flex-direction: row;
-  // background-image: url("https://images.unsplash.com/photo-1525362081669-2b476bb628c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80");
+  // background-image: url("https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80");
   // background-repeat: no-repeat;
   // background-position: right top;
 }
-.imgCont {
-  margin: 0;
-  // background-image: url("https://images.pexels.com/photos/72904/sound-live-production-volume-72904.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+h1 {
+  // border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img {
-    margin: 0;
-    max-width: 50vw;
-    height: 100vh;
+    width: 3vw;
+    margin-right: 15px;
   }
 }
 .background {
+  // border: 1px solid black;
   margin: 0;
   position: absolute right;
+  // z-index: -1;
   width: 100vw;
   height: 100vh;
-  background-color: $pri-color;
+  clip-path: polygon(100% 0, 100% 69%, 59% 100%, 0 100%, 0 0);
+  // clip-path: polygon(0 0, 0% 100%, 100% 0);
+  background-color: $tri-color;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 
   h1 {
     margin: 0;
-    padding-left: 5vw;
+    // padding-left: 5vw;
     color: $sec-color;
     font-size: 2.5em;
     font-family: $pri-font;
   }
 
   .login {
-    padding-left: 5vw;
+    // padding-left: 5vw;
     display: flex;
     flex-direction: column;
     color: $sec-color;
     font-family: $sec-font;
     font-size: 1.1em;
     input {
-      max-width: 20vw;
+      max-width: 35vw;
     }
 
     .Button {
       width: 10vw;
       border: none;
-      color: $pri-color;
-      background: white;
+      color: $sec-color;
+      background: $pri-color;
     }
   }
 }

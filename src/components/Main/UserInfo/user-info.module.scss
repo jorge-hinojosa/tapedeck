@@ -5,6 +5,7 @@ $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
 .user_card {
+  // border: 1px black solid;
   margin-bottom: 10px;
   width: auto;
   height: auto;
@@ -25,4 +26,53 @@ $sec-font: "IBM Plex Mono", monospace;
     }
   }
   font-family: $sec-font;
+}
+
+@media (min-width: 900px) {
+  .user_card {
+    margin-bottom: 10px;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      border-radius: 1vw;
+      margin-right: 30px;
+      max-width: 15vw;
+    }
+    .info_cont {
+      line-height: 1vh;
+      h2 {
+        margin-bottom: 25px;
+      }
+    }
+    font-family: $sec-font;
+  }
+}
+@media (min-width: 1200px) {
+  .user_card {
+    margin-bottom: 10px;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      border-radius: 1vw;
+      margin-right: 30px;
+      max-width: 12vw;
+    }
+    .info_cont {
+      line-height: 1vh;
+      h2 {
+        margin-bottom: 25px;
+      }
+    }
+    font-family: $sec-font;
+  }
 }

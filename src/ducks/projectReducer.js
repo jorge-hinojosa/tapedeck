@@ -1,7 +1,8 @@
 import axios from "axios";
 
 let initialState = {
-  projects: []
+  projects: [],
+  loading: false
 };
 
 //Action Types
@@ -22,7 +23,9 @@ export function projectReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case `${GET_PROJECTS}_FULFILLED`:
-      return { ...state, projects: payload };
+      return { ...state, projects: payload, loading: false };
+    case `${GET_PROJECTS}_PENDING`:
+      return { ...state, loading: true };
     default:
       return state;
   }

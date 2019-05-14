@@ -84,15 +84,14 @@ class Welcome extends Component {
   render() {
     return (
       <div className={styles.welcomeCont}>
-        <div className={styles.imgCont}>
-          <img
-            // src='https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80'
-            src="https://s3-us-west-2.amazonaws.com/honey-bucket/photos/cassette-tape.jpg"
-            alt="TapeDeck"
-          />
-        </div>
         <div className={styles.background}>
-          <h1>T A P E D E C K</h1>
+          <h1>
+            <img
+              src="https://image.flaticon.com/icons/png/512/1789/1789303.png"
+              alt="TapeDeck"
+            />
+            T A P E D E C K
+          </h1>
           <ToastContainer
             autoClose={4000}
             position={toast.POSITION.BOTTOM_RIGHT}
@@ -103,28 +102,28 @@ class Welcome extends Component {
               <input
                 onChange={e => this.handleFirstNameChange(e.target.value)}
                 type="text"
-                placeholder="Jorge"
+                placeholder="Lars"
               />{" "}
               <br />
               Last Name:{" "}
               <input
                 onChange={e => this.handleLastNameChange(e.target.value)}
                 type="text"
-                placeholder="Hinojosa"
+                placeholder="Ulrich"
               />{" "}
               <br />
               Email :{" "}
               <input
                 onChange={e => this.handleEmailChange(e.target.value)}
                 type="text"
-                placeholder="user@email.com"
+                placeholder="drummerboi@metallica.com"
               />{" "}
               <br />
               Username:{" "}
               <input
                 onChange={e => this.handleUsernameChange(e.target.value)}
                 type="text"
-                placeholder="user123"
+                placeholder="@napstersux"
               />{" "}
               <br />
               Password:{" "}
@@ -139,7 +138,7 @@ class Welcome extends Component {
               <br />
               {this.renderRedirect()}
               Already have an account?
-              <br />
+              <br /> <br />
               <Button className={styles.Button} onClick={this.hasAccount}>
                 Login
               </Button>{" "}

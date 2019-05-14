@@ -29,16 +29,21 @@ class VersionCard extends Component {
       name,
       description,
       username,
-      project_url
+      project_url,
+      upload_date
     } = this.props;
     return (
       <div className={styles.versionCard_cont}>
         <div className={styles.versionCard}>
           <div className={styles.cont}>
-            <i className="material-icons bullet-arrow">play_arrow</i>
-            <span>{project_id}</span>
-            <span>{description}</span>
-            <span>{username}</span>
+            <div className={styles.date_cont}>
+              <i className="material-icons bullet-arrow">play_arrow</i>
+              <span>{upload_date}</span>
+            </div>
+            <div className={styles.info_cont}>
+              <span>{description}</span>
+              <span>@{username}</span>
+            </div>
             <div className={styles.icons_cont}>
               <i className="material-icons">
                 <a href={project_url} target="_blank" rel="noopener noreferrer">

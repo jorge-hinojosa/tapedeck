@@ -4,7 +4,8 @@ $tri-color: black;
 $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 .nav {
-  width: 100vw;
+  // border: 1px solid yellow;
+  width: 100%;
   height: 7vh;
   background-color: $tri-color;
   color: $sec-color;
@@ -25,24 +26,82 @@ $sec-font: "IBM Plex Mono", monospace;
     h1 {
       color: $sec-color;
       font-family: $pri-font;
-      font-size: 2em;
+      font-size: 1.8em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        margin-right: 15px;
+        width: 2.5vw;
+      }
     }
     .cont {
       // border: 1px solid white;
       width: 10vw;
       display: flex;
+      flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
       color: $sec-color;
       cursor: pointer;
       .Button {
-        margin-left: 10px;
+        // margin-left: 10px;
         max-width: auto;
         border: none;
         color: $sec-color;
         background: $pri-color;
         font-family: $sec-font;
         // text-decoration: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .nav {
+    // margin: 0;
+    width: 100%;
+    height: 7vh;
+    background-color: $tri-color;
+    color: $sec-color;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .nav_cont {
+      // border: 1px solid white;
+      width: 70vw;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        color: $sec-color;
+        font-family: $pri-font;
+        font-size: 2em;
+        margin: 0;
+      }
+      .cont {
+        // border: 1px solid white;
+        width: 10vw;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        color: $sec-color;
+        cursor: pointer;
+        .Button {
+          margin: 0;
+          max-width: auto;
+          border: none;
+          color: $sec-color;
+          background: $pri-color;
+          font-family: $sec-font;
+          // text-decoration: none;
+        }
       }
     }
   }

@@ -88,7 +88,8 @@ class ProjectCard extends Component {
       username,
       project_url,
       deleteProject,
-      project_id
+      project_id,
+      upload_date
     } = this.props;
     // console.log(this.state.versions);
 
@@ -101,6 +102,7 @@ class ProjectCard extends Component {
           description={version.description}
           username={version.username}
           project_url={version.project_url}
+          upload_date={version.upload_date}
           getAllVersions={this.getAllVersions}
           successToast={this.props.successToast}
           errorToast={this.props.errorToast}
@@ -115,13 +117,27 @@ class ProjectCard extends Component {
           <div className={styles.icons_cont}>
             <div className={styles.dropdown_cont}>
               {!this.state.cardOpen ? (
-                <i className="material-icons" onClick={() => this.toggleCard()}>
-                  arrow_right
-                </i>
+                <span className={styles.projectName_cont}>
+                  <i
+                    className="material-icons"
+                    onClick={() => this.toggleCard()}
+                  >
+                    arrow_right
+                  </i>
+                  {/* <span className={styles.label}>Project Name:</span> <br /> */}
+                  <span className={styles.projectName}>{name}</span>
+                </span>
               ) : (
-                <i className="material-icons" onClick={() => this.toggleCard()}>
-                  arrow_drop_down
-                </i>
+                <span className={styles.projectName_cont}>
+                  <i
+                    className="material-icons"
+                    onClick={() => this.toggleCard()}
+                  >
+                    arrow_drop_down
+                  </i>
+                  {/* <span className={styles.label}>Project Name:</span> <br /> */}
+                  <span className={styles.projectName}>{name}</span>
+                </span>
               )}
             </div>
             <div className={styles.otherIcons_cont}>
@@ -148,18 +164,26 @@ class ProjectCard extends Component {
             </div>
           </div>
           <div className={styles.project_cont}>
-            <span>
-              <span className={styles.label}>Project Name:</span> <br />
-              {name}
-            </span>
-            <span>
-              <span className={styles.label}>Last Edit:</span> <br />
-              {description}
-            </span>
-            <span>
-              <span className={styles.label}>Last Editted By:</span> <br /> @
-              {this.props.username}
-            </span>
+            <div className={styles.project_info_cont}>
+              <div className={styles.label_cont}>
+                <span className={styles.label}>Uploaded:</span>
+              </div>
+              <span className={styles.project_info}>{upload_date}</span>
+            </div>
+            <div className={styles.project_info_cont}>
+              <div className={styles.label_cont}>
+                <span className={styles.label}>Last Edit:</span>
+              </div>
+              <span className={styles.project_info}>{description}</span>
+            </div>
+            <div className={styles.project_info_cont}>
+              <div className={styles.label_cont}>
+                <span className={styles.label}>Last Editted By:</span>
+              </div>
+              <span className={styles.project_info}>
+                @{this.props.username}
+              </span>
+            </div>
           </div>
         </div>
         {this.state.cardOpen ? viewVersions : null}
@@ -191,6 +215,7 @@ class ProjectCard extends Component {
             description={description}
             username={username}
             project_url={project_url}
+            upload_date={upload_date}
             getAllVersions={this.getAllVersions}
             getCurrVersionUsername={this.getCurrVersionUsername}
             reqProjects={this.props.reqProjects}

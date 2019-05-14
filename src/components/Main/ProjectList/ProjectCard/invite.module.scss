@@ -5,6 +5,8 @@ $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
 .form {
+  // border: 1px solid black;
+
   width: 80vw;
   height: auto;
   display: flex;
@@ -45,5 +47,53 @@ $sec-font: "IBM Plex Mono", monospace;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .form {
+    // border: 1px solid black;
+
+    width: 70vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .searchResult_cont {
+    // border: 1px black solid;
+    width: 70vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      margin-top: 3px;
+      margin-bottom: 3px;
+      width: 5vw;
+      // height: 5vh;
+      border-radius: 75px;
+    }
+
+    .searchResult {
+      // border: 1px black solid;
+      width: 40vw;
+      background: $sec-color;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      margin-top: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      font-family: $sec-font;
+      color: $tri-color;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
   }
 }

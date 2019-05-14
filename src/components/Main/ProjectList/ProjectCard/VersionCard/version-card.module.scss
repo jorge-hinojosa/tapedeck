@@ -13,7 +13,7 @@ $sec-font: "IBM Plex Mono", monospace;
 
   .versionCard {
     // border: 1px solid black;
-    width: 75vw;
+    width: 78vw;
     height: 5vh;
     border-radius: 5px;
     margin-bottom: 15px;
@@ -29,14 +29,29 @@ $sec-font: "IBM Plex Mono", monospace;
       position: absolute left;
     }
     .cont {
-      width: 70vw;
+      width: 76vw;
       display: flex;
       justify-content: space-between;
 
       font-family: $sec-font;
-
+      font-size: 0.9em;
+      .date_cont {
+        // border: 1px solid black;
+        width: 30%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .info_cont {
+        // border: 1px solid black;
+        width: 55%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
       .icons_cont {
-        width: 13vw;
+        // border: 1px solid black;
+        width: 15%;
         height: auto;
         position: absolute right;
         display: flex;
@@ -44,6 +59,70 @@ $sec-font: "IBM Plex Mono", monospace;
         a {
           text-decoration: none;
           color: $tri-color;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .versionCard_cont {
+    width: 70vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .versionCard {
+      // border: 1px solid black;
+      width: 65vw;
+      height: 5vh;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+      background-color: $sec-color;
+      color: $tri-color;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .bullet-arrow {
+        position: absolute left;
+      }
+      .cont {
+        width: 60vw;
+        display: flex;
+        justify-content: space-between;
+
+        font-family: $sec-font;
+        font-size: 1em;
+
+        .date_cont {
+          // border: 1px solid black;
+          width: 25%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .info_cont {
+          // border: 1px solid black;
+          width: 60%;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+        .icons_cont {
+          // border: 1px solid black;
+          width: 15%;
+          height: auto;
+          position: absolute right;
+          display: flex;
+          justify-content: space-between;
+          a {
+            text-decoration: none;
+            color: $tri-color;
+          }
         }
       }
     }

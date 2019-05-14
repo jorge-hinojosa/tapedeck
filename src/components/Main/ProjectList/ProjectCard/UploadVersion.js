@@ -16,9 +16,13 @@ class UploadVersion extends Component {
     this.state = {
       chosenFile: [],
       updatedDescription: "",
-      updatedUsername: ""
+      updatedUsername: "",
+      updatedUploadDate: ""
       // url: ""
     };
+  }
+  componentDidMount() {
+    this.getUploadDate();
   }
   handleClick = () => {
     this.uploadVersion();
@@ -33,7 +37,16 @@ class UploadVersion extends Component {
       chosenFile: [e.target.files[0]]
     });
   };
+  getUploadDate = () => {
+    let today = new Date();
+    let date =
+      today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
+    let time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + " " + time;
 
+    this.setState({ updatedUploadDate: dateTime });
+  };
   uploadVersion = async () => {
     let file = this.state.chosenFile[0];
     // Split the filename to get the name and type
@@ -46,10 +59,15 @@ class UploadVersion extends Component {
       name,
       description,
       project_url,
+      upload_date,
       reqProjects,
       username
     } = this.props;
-    const { updatedDescription, updatedUsername } = this.state;
+    const {
+      updatedDescription,
+      updatedUsername,
+      updatedUploadDate
+    } = this.state;
     // console.log(username, updatedUsername);
 
     console.log("Preparing the upload");
@@ -88,7 +106,8 @@ class UploadVersion extends Component {
               name,
               description,
               username,
-              project_url
+              project_url,
+              upload_date
             })
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -97,18 +116,19 @@ class UploadVersion extends Component {
               name,
               updatedDescription,
               updatedUsername,
-              url
+              url,
+              updatedUploadDate
             })
             .then(res => {
               console.log(res);
               reqProjects();
             })
             .catch(err => console.log(err));
-          this.props.successToast();
+          // this.props.successToast();
         })
         .catch(err => {
           console.log(err);
-          this.props.errorToast("Could not upload version");
+          // this.props.errorToast("Could not upload version");
         });
     }
     this.props.getAllVersions(project_id);

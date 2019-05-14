@@ -24,12 +24,15 @@ class Uploader extends Component {
       description: "",
       username: "",
       chosenFile: [],
+      uploadDate: "",
       success: false,
       error: false,
       errorMessage: ""
     };
   }
-
+  componentDidMount() {
+    this.getUploadDate();
+  }
   handleClick = () => {
     this.uploadNew();
     this.addProjectToggle();
@@ -51,6 +54,16 @@ class Uploader extends Component {
       this.setState({ adding: false });
     }
   };
+  getUploadDate = () => {
+    let today = new Date();
+    let date =
+      today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
+    let time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + " " + time;
+
+    this.setState({ uploadDate: dateTime });
+  };
   uploadNew = () => {
     // let file = e.target.files[0];
     let file = this.state.chosenFile[0];
@@ -59,7 +72,8 @@ class Uploader extends Component {
     let fileName = fileParts[0];
     let fileType = fileParts[1];
 
-    const { name, description, username } = this.state;
+    const { name, description, username, uploadDate } = this.state;
+
     console.log("Preparing the upload");
 
     axios
@@ -84,7 +98,13 @@ class Uploader extends Component {
           this.setState({ success: true });
         });
         axios
-          .post("/api/project", { name, description, username, url })
+          .post("/api/project", {
+            name,
+            description,
+            username,
+            url,
+            uploadDate
+          })
           .then(res => {
             this.props.reqProjects();
             this.props.successToast();
