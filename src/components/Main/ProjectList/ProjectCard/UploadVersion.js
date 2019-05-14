@@ -16,16 +16,12 @@ class UploadVersion extends Component {
     this.state = {
       chosenFile: [],
       updatedDescription: "",
-      updatedUsername: "",
-      updatedUploadDate: ""
-      // url: ""
+      updatedUsername: ""
     };
-  }
-  componentDidMount() {
-    this.getUploadDate();
   }
   handleClick = () => {
     this.uploadVersion();
+    this.props.toggleLoading();
     this.props.toggleUpload();
   };
   handleDesc = val => this.setState({ updatedDescription: val });
@@ -36,16 +32,6 @@ class UploadVersion extends Component {
     this.setState({
       chosenFile: [e.target.files[0]]
     });
-  };
-  getUploadDate = () => {
-    let today = new Date();
-    let date =
-      today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
-    let time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    let dateTime = date + " " + time;
-
-    this.setState({ updatedUploadDate: dateTime });
   };
   uploadVersion = async () => {
     let file = this.state.chosenFile[0];
@@ -61,76 +47,88 @@ class UploadVersion extends Component {
       project_url,
       upload_date,
       reqProjects,
-      username
+      username,
+      successToast,
+      errorToast
+      // toggleLoading
     } = this.props;
     const {
       updatedDescription,
-      updatedUsername,
-      updatedUploadDate
+      updatedUsername
+      // updatedUploadDate
     } = this.state;
     // console.log(username, updatedUsername);
 
+    let today = new Date();
+    let date =
+      today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear();
+    let time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let updatedUploadDate = date + " " + time;
+
     console.log("Preparing the upload");
 
-    if (username !== undefined) {
-      console.log(username);
-      finishUpload(username);
-    } else console.log("IT DIDNT WORK", username);
+    // if (username !== undefined) {
+    //   console.log(username);
+    //   finishUpload(username);
+    // } else console.log("IT DIDNT WORK", username);
 
-    function finishUpload(username) {
-      axios
-        .post("/sign_s3", {
-          fileName: fileName,
-          fileType: fileType
-        })
-        .then(async response => {
-          var returnData = response.data.data.returnData;
-          var signedRequest = returnData.signedRequest;
-          var url = returnData.url;
-          console.log("Recieved a signed request " + signedRequest);
+    // function finishUpload(username) {
+    axios
+      .post("/sign_s3", {
+        fileName: fileName,
+        fileType: fileType
+      })
+      .then(async response => {
+        var returnData = response.data.data.returnData;
+        var signedRequest = returnData.signedRequest;
+        var url = returnData.url;
+        console.log("Recieved a signed request " + signedRequest);
 
-          var options = {
-            headers: {
-              "Content-Type": fileType
-            }
-          };
-          await axios
-            .put(signedRequest, file, options)
-            .then(result => {
-              console.log("Response from s3");
-            })
-            .catch(err => console.log(err));
-          await axios
-            .post("/api/project/versions", {
-              project_id,
-              name,
-              description,
-              username,
-              project_url,
-              upload_date
-            })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-          await axios
-            .put(`/api/project/${project_id}`, {
-              name,
-              updatedDescription,
-              updatedUsername,
-              url,
-              updatedUploadDate
-            })
-            .then(res => {
-              console.log(res);
-              reqProjects();
-            })
-            .catch(err => console.log(err));
-          // this.props.successToast();
-        })
-        .catch(err => {
-          console.log(err);
-          // this.props.errorToast("Could not upload version");
-        });
-    }
+        var options = {
+          headers: {
+            "Content-Type": fileType
+          }
+        };
+        await axios
+          .put(signedRequest, file, options)
+          .then(result => {
+            console.log("Response from s3");
+          })
+          .catch(err => console.log(err));
+        await axios
+          .post("/api/project/versions", {
+            project_id,
+            name,
+            description,
+            username,
+            project_url,
+            upload_date
+          })
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+        await axios
+          .put(`/api/project/${project_id}`, {
+            name,
+            updatedDescription,
+            updatedUsername,
+            url,
+            updatedUploadDate
+          })
+          .then(res => {
+            console.log(res);
+            reqProjects();
+          })
+          .catch(err => console.log(err));
+        // toggleLoading();
+        successToast();
+      })
+      .catch(err => {
+        console.log(err);
+        // toggleLoading();
+        errorToast("Could not upload version");
+      });
+    // }
     this.props.getAllVersions(project_id);
     this.clearInputFields();
   };
@@ -144,7 +142,7 @@ class UploadVersion extends Component {
   render() {
     // console.log(this.props);
     return (
-      <div>
+      <div className={styles.cont}>
         <Dialog
           className={styles.newVersion_dialog}
           open={this.props.uploading}

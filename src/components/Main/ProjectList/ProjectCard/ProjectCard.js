@@ -15,6 +15,7 @@ class ProjectCard extends Component {
       editting: false,
       inviting: false,
       uploading: false
+      // loading: false
     };
   }
   toggleCard = () => {
@@ -70,7 +71,12 @@ class ProjectCard extends Component {
       this.setState({ uploading: false });
     }
   };
-
+  // toggleLoading = () => {
+  //   const { loading } = this.state;
+  //   loading
+  //     ? this.setState({ loading: false })
+  //     : this.setState({ loading: true });
+  // };
   getAllVersions = project_id => {
     axios
       .get(`/api/project/versions/${project_id}`)
@@ -82,6 +88,7 @@ class ProjectCard extends Component {
   };
 
   render() {
+    // console.log(this.props);
     const {
       name,
       description,
@@ -222,6 +229,7 @@ class ProjectCard extends Component {
             reqProjects={this.props.reqProjects}
             uploading={this.state.uploading}
             toggleUpload={this.toggleUpload}
+            toggleLoading={this.toggleLoading}
             successToast={this.props.successToast}
             errorToast={this.props.errorToast}
           />

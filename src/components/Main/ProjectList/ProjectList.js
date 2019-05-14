@@ -20,6 +20,7 @@ class ProjectList extends Component {
     this.props.reqProjects();
   };
   render() {
+    // console.log(this.props);
     const { projects } = this.props.projects;
     const myProjectList = projects.map((project, i) => {
       const {
@@ -73,8 +74,8 @@ class ProjectList extends Component {
             upload_date={upload_date}
             deleteProject={this.delete}
             reqProjects={this.props.reqProjects}
-            successToast={this.successToast}
-            errorToast={this.errorToast}
+            successToast={this.props.successToast}
+            errorToast={this.props.errorToast}
             key={i}
           />
         );
