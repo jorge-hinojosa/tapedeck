@@ -21,7 +21,6 @@ class UploadVersion extends Component {
   }
   handleClick = () => {
     this.uploadVersion();
-    this.props.toggleLoading();
     this.props.toggleUpload();
   };
   handleDesc = val => this.setState({ updatedDescription: val });
@@ -50,7 +49,6 @@ class UploadVersion extends Component {
       username,
       successToast,
       errorToast
-      // toggleLoading
     } = this.props;
     const {
       updatedDescription,
@@ -120,12 +118,12 @@ class UploadVersion extends Component {
             reqProjects();
           })
           .catch(err => console.log(err));
-        // toggleLoading();
+
         successToast();
       })
       .catch(err => {
         console.log(err);
-        // toggleLoading();
+
         errorToast("Could not upload version");
       });
     // }

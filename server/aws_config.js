@@ -15,8 +15,6 @@ exports.sign_s3 = (req, res) => {
   const fileType = req.body.fileType;
 
   // Figure out a unique filename
-  // let hashids = new Hashids("", 10);
-  // let hash_id = hashids.encode(Math.floor(Math.random()));
   var random = Math.floor(Math.random() * 900000000000000000);
 
   fileName = `${fileName}_${random}.${fileType}`;

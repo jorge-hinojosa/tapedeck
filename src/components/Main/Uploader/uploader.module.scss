@@ -60,4 +60,30 @@ i {
     // justify-content: space-between;
     align-items: center;
   }
+  .form {
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: $sec-font;
+
+    .textfield {
+      // border: 1px black solid;
+      width: 20vw;
+    }
+    .button_cont {
+      // border: 1px solid black;
+      width: 20vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .button {
+        // background: $pri-color;
+        // color: $sec-color;
+        margin-right: 5px;
+      }
+    }
+  }
 }

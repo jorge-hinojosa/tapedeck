@@ -22,72 +22,84 @@ class ProjectList extends Component {
   render() {
     // console.log(this.props);
     const { projects } = this.props.projects;
-    const myProjectList = projects.map((project, i) => {
+    const myFilteredProjects = projects.filter(
+      project => project.shared === false
+    );
+    console.log(myFilteredProjects);
+    const myProjectList = myFilteredProjects.map((project, i) => {
       const {
         project_id,
         name,
         description,
         latest_user,
         project_url,
-        upload_date,
-        shared
+        upload_date
       } = project;
-      // console.log(latest_user);
-      if (shared === false) {
-        return (
-          <ProjectCard
-            project_id={project_id}
-            name={name}
-            description={description}
-            username={latest_user}
-            project_url={project_url}
-            upload_date={upload_date}
-            deleteProject={this.delete}
-            reqProjects={this.props.reqProjects}
-            successToast={this.props.successToast}
-            errorToast={this.props.errorToast}
-            key={i}
-          />
-        );
-      }
+      return (
+        <ProjectCard
+          project_id={project_id}
+          name={name}
+          description={description}
+          username={latest_user}
+          project_url={project_url}
+          upload_date={upload_date}
+          deleteProject={this.delete}
+          reqProjects={this.props.reqProjects}
+          successToast={this.props.successToast}
+          errorToast={this.props.errorToast}
+          key={i}
+        />
+      );
     });
 
-    const otherProjectList = projects.map((project, i) => {
+    const otherFilteredProjects = projects.filter(
+      project => project.shared === true
+    );
+    const otherProjectList = otherFilteredProjects.map((project, i) => {
       const {
         project_id,
         name,
         description,
         latest_user,
         project_url,
-        upload_date,
-        shared
+        upload_date
       } = project;
-      // console.log(latest_user);
-      if (shared === true) {
-        return (
-          <ProjectCard
-            project_id={project_id}
-            name={name}
-            description={description}
-            username={latest_user}
-            project_url={project_url}
-            upload_date={upload_date}
-            deleteProject={this.delete}
-            reqProjects={this.props.reqProjects}
-            successToast={this.props.successToast}
-            errorToast={this.props.errorToast}
-            key={i}
-          />
-        );
-      }
+      return (
+        <ProjectCard
+          project_id={project_id}
+          name={name}
+          description={description}
+          username={latest_user}
+          project_url={project_url}
+          upload_date={upload_date}
+          deleteProject={this.delete}
+          reqProjects={this.props.reqProjects}
+          successToast={this.props.successToast}
+          errorToast={this.props.errorToast}
+          key={i}
+        />
+      );
     });
+    console.log(myProjectList, otherProjectList);
     return (
       <div>
         {/* {loading ? <div>Loading</div> : null} */}
         <h2 className={styles.projectDivider}>My Projects:</h2> <br />
-        {myProjectList.length === 0 ? <NoProjects /> : myProjectList}
+        {myProjectList.length === 0 ? (
+          // ||
+          // myProjectList[myProjectList.length - 1] === undefined ? (
+          <NoProjects />
+        ) : (
+          myProjectList
+        )}
         <h2 className={styles.projectDivider}>Shared Projects:</h2> <br />
-        {otherProjectList.length === 0 ? <NoProjects /> : otherProjectList}
+        {otherProjectList.length === 0 ? (
+          // ||
+          // otherProjectList[otherProjectList.length - 1] === undefined ? (
+          <NoProjects />
+        ) : (
+          otherProjectList
+        )}
       </div>
     );
   }

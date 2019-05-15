@@ -179,7 +179,7 @@ class ProjectCard extends Component {
             </div>
             <div className={styles.project_info_cont}>
               <div className={styles.label_cont}>
-                <span className={styles.label}>Last Edit:</span>
+                <span className={styles.label}>Comment:</span>
               </div>
               <span className={styles.project_info}>{description}</span>
             </div>

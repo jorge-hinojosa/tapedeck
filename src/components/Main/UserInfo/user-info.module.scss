@@ -5,6 +5,7 @@ $pri-font: "Bungee Shade", cursive;
 $sec-font: "IBM Plex Mono", monospace;
 
 $breakpoints: (
+  "small": 750px,
   "standard": 900px,
   "wide": 1200px
 );
@@ -45,9 +46,14 @@ $breakpoints: (
     line-height: 1vh;
 
     .userInfo {
+      // max-width: 40vw;
       font-size: 1.2em;
       font-family: $sec-font;
       color: $tri-color;
+      // overflow: wrap;
+      @include mq("small") {
+        font-size: 1em;
+      }
       @include mq("standard") {
         font-size: 1.4em;
       }
