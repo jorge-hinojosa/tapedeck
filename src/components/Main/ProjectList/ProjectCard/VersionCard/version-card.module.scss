@@ -67,6 +67,7 @@ $sec-font: "IBM Plex Mono", monospace;
 
 @media (min-width: 900px) {
   .versionCard_cont {
+    // border: 1px solid black;
     width: 70vw;
     height: auto;
     display: flex;
@@ -74,7 +75,6 @@ $sec-font: "IBM Plex Mono", monospace;
     align-items: center;
 
     .versionCard {
-      // border: 1px solid black;
       width: 65vw;
       height: 5vh;
       border-radius: 5px;
