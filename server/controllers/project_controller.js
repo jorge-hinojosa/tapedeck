@@ -12,7 +12,6 @@ module.exports = {
       const newProjectId = await db
         .add_new_project([name, description, username, url, uploadDate])
         .catch(err => console.log(err));
-      // console.log(newProjectId[0].id);
       db.add_to_projectlist([id, newProjectId[0].id]).catch(err =>
         console.log(err)
       );
@@ -25,7 +24,6 @@ module.exports = {
     const db = req.app.get("db");
     const { id } = req.session.user;
 
-    console.log(id);
     const originalProjects = await db
       .get_projects(id)
       .catch(err => console.log(err));
@@ -33,7 +31,6 @@ module.exports = {
       .get_shared_projects(id)
       .catch(err => console.log(err));
     const allProjects = originalProjects.concat(sharedProjects);
-    // console.log(allProjects);
     res.status(200).json(allProjects);
   },
   getProject: async (req, res) => {
@@ -109,7 +106,7 @@ module.exports = {
       project_url,
       upload_date
     } = req.body;
-    // console.log(username);
+
     db.add_version(
       project_id,
       name,
@@ -135,7 +132,6 @@ module.exports = {
   editVersion: async (req, res) => {
     const db = req.app.get("db");
     const { id } = req.params;
-    console.log(id);
     const {
       project_id,
       name,

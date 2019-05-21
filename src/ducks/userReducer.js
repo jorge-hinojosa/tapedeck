@@ -20,7 +20,6 @@ export const reqUserData = () => {
     payload: axios
       .get("/auth/user-data")
       .then(res => {
-        console.log(res.data);
         return res.data;
       })
       .catch(err => console.log(err))
@@ -30,7 +29,6 @@ export const reqUserData = () => {
 //Reducer Function
 export function userReducer(state = initialState, action) {
   const { type, payload } = action;
-  console.log(state);
   switch (type) {
     case `${REQ_USER_DATA}_FULFILLED`:
       const {

@@ -11,7 +11,6 @@ module.exports = {
     const db = req.app.get("db");
     const { user_id, project_id } = req.body;
     const { id } = req.session.user;
-    console.log(req.body);
     db.add_user_to_project([id, project_id, user_id]).catch(err =>
       console.log(err)
     );

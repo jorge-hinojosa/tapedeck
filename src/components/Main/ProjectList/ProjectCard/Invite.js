@@ -27,7 +27,6 @@ class Invite extends Component {
     axios
       .post("/api/user", { user_id, project_id })
       .then(res => {
-        console.log(res);
         this.props.successToast();
       })
       .catch(err => {
@@ -50,7 +49,6 @@ class Invite extends Component {
         </div>
       );
     });
-    console.log(this.state.searchResults);
     return (
       <div className={styles.form}>
         <InputLabel>

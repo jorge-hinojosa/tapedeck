@@ -96,7 +96,6 @@ module.exports = {
       .catch(err => console.log(err));
 
     const result = await db.get_user_by_id(id).catch(err => console.log(err));
-    // console.log(result);
     const newUserInfo = result[0];
 
     req.session.user = {

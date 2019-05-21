@@ -11,7 +11,6 @@ class ProjectList extends Component {
     this.props.reqProjects();
   }
   delete = project_id => {
-    console.log(project_id);
     axios
       .delete(`/api/project/${project_id}`)
       .then(res => {})
@@ -20,12 +19,10 @@ class ProjectList extends Component {
     this.props.reqProjects();
   };
   render() {
-    // console.log(this.props);
     const { projects } = this.props.projects;
     const myFilteredProjects = projects.filter(
       project => project.shared === false
     );
-    console.log(myFilteredProjects);
     const myProjectList = myFilteredProjects.map((project, i) => {
       const {
         project_id,
@@ -80,7 +77,6 @@ class ProjectList extends Component {
         />
       );
     });
-    console.log(myProjectList, otherProjectList);
     return (
       <div>
         {/* {loading ? <div>Loading</div> : null} */}

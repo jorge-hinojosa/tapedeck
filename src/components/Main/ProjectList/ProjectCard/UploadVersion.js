@@ -27,7 +27,6 @@ class UploadVersion extends Component {
   handleUsername = val => this.setState({ updatedUsername: val });
 
   chooseFile = e => {
-    console.log(e.target.files[0]);
     this.setState({
       chosenFile: [e.target.files[0]]
     });
@@ -55,7 +54,6 @@ class UploadVersion extends Component {
       updatedUsername
       // updatedUploadDate
     } = this.state;
-    // console.log(username, updatedUsername);
 
     let today = new Date();
     let date =
@@ -66,12 +64,6 @@ class UploadVersion extends Component {
 
     console.log("Preparing the upload");
 
-    // if (username !== undefined) {
-    //   console.log(username);
-    //   finishUpload(username);
-    // } else console.log("IT DIDNT WORK", username);
-
-    // function finishUpload(username) {
     axios
       .post("/sign_s3", {
         fileName: fileName,
@@ -103,7 +95,7 @@ class UploadVersion extends Component {
             project_url,
             upload_date
           })
-          .then(res => console.log(res))
+          .then(res => {})
           .catch(err => console.log(err));
         await axios
           .put(`/api/project/${project_id}`, {
@@ -114,7 +106,6 @@ class UploadVersion extends Component {
             updatedUploadDate
           })
           .then(res => {
-            console.log(res);
             reqProjects();
           })
           .catch(err => console.log(err));
@@ -138,7 +129,6 @@ class UploadVersion extends Component {
     });
   };
   render() {
-    // console.log(this.props);
     return (
       <div className={styles.cont}>
         <Dialog

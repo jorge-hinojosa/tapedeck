@@ -43,7 +43,6 @@ class Welcome extends Component {
         password
       })
       .then(res => {
-        console.log(res);
         if (res.data.username) {
           this.setState({
             loggedIn: true,

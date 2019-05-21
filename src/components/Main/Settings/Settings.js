@@ -15,7 +15,6 @@ import axios from "axios";
 class Settings extends Component {
   constructor(props) {
     super(props);
-    // console.log(this.props);
     this.state = {
       updatedFirstName: this.props.first_name,
       updatedLastName: this.props.last_name,
@@ -83,7 +82,6 @@ class Settings extends Component {
             updatedBio
           })
           .then(res => {
-            console.log(res);
             this.props.reqUserData();
             this.props.successToast();
           })
@@ -110,7 +108,6 @@ class Settings extends Component {
     });
   };
   choosePicture = e => {
-    console.log(e.target.files[0]);
     this.setState({
       updatedImage: [e.target.files[0]]
     });

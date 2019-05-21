@@ -71,24 +71,16 @@ class ProjectCard extends Component {
       this.setState({ uploading: false });
     }
   };
-  // toggleLoading = () => {
-  //   const { loading } = this.state;
-  //   loading
-  //     ? this.setState({ loading: false })
-  //     : this.setState({ loading: true });
-  // };
   getAllVersions = project_id => {
     axios
       .get(`/api/project/versions/${project_id}`)
       .then(res => {
-        // console.log("HERE");
         this.setState({ versions: res.data });
       })
       .catch(err => console.log(err));
   };
 
   render() {
-    // console.log(this.props);
     const {
       name,
       description,
@@ -98,7 +90,6 @@ class ProjectCard extends Component {
       project_id,
       upload_date
     } = this.props;
-    // console.log(this.state.versions);
 
     const viewVersions = this.state.versions.map((version, i) => {
       return (
