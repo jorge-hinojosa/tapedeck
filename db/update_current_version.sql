@@ -4,4 +4,4 @@ SET name = $2,
     latest_user = $4,
     project_url = $5,
     upload_date = $6
-WHERE id = $1
+WHERE id = $1 RETURNING *;

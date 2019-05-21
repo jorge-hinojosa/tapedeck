@@ -49,7 +49,7 @@ module.exports = {
     db.remove_project(id).catch(err => console.log(err));
     res.sendStatus(200);
   },
-  updateCurrVersion: (req, res) => {
+  updateCurrVersion: async (req, res) => {
     const db = req.app.get("db");
     const { id } = req.params;
     const {
@@ -60,15 +60,17 @@ module.exports = {
       updatedUploadDate
     } = req.body;
 
-    db.update_current_version([
-      id,
-      name,
-      updatedDescription,
-      updatedUsername,
-      url,
-      updatedUploadDate
-    ]).catch(err => console.log(err));
-    res.sendStatus(200);
+    const result = await db
+      .update_current_version([
+        id,
+        name,
+        updatedDescription,
+        updatedUsername,
+        url,
+        updatedUploadDate
+      ])
+      .catch(err => console.log(err));
+    res.status(200).json(result);
   },
   editProject: async (req, res) => {
     const db = req.app.get("db");
