@@ -61,5 +61,9 @@ app.put("/api/project/versions/:id", pc.editVersion);
 app.get("/api/user", uc.findUser);
 app.post("/api/user", uc.inviteUser);
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
+
 //Server listening
 app.listen(SERVER_PORT, () => console.log(`Listening on port ${SERVER_PORT}`));
